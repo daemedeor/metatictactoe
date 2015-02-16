@@ -1,5 +1,4 @@
 function Player(name, marker, wins, losses, ties){
-	
 	this.name = name;
 	this.marker = marker;
 	this.wins = wins;
@@ -17,16 +16,18 @@ function TicTacToeGame(player1, player2, noOfTurns){
 	this.mainBlock = true;
 	this.currentMarker = this.turn.marker;
 	this.board = [[0,0,0], [0,0,0], [0,0,0]];
+	this.won = false;
 	this.SetUpGame();
-}
+};
 
 function SmallerGameBoard(){
 	this.board = [[0,0,0], [0,0,0], [0,0,0]];
 	this.won = false;
+	this.filled = false;
 	this.mainBlock = false;
 	this.x;
 	this.y;
-}
+};
 
 TicTacToeGame.prototype.SetUpGame = function() {
 	
@@ -73,34 +74,62 @@ TicTacToeGame.prototype.switchTurns = function(player){
 	this.currentMarker = player.marker;
 };
 
-TicTacToeGame.prototype.determineStateOfBlock = function(coordinates, who, whichBlock, mainBlock){
+TicTacToeGame.prototype.determineStateOfBlock = function(coordinates, whichBlock){
 	var row = 0, column = 0, diagnal = 0, antiDiagnal = 0;
 	var x = coordinates.charAt(0);
 	var y = coordinates.charAt(2);
 
-	whichBlock.board[x][y] = who.marker;
-
+	
+	whichBlock.board[x][y] = this.currentMarker;
 	for(var i = 0; i < this.boardSize; i++){
-		if(whichBlock.board[x][i] == who.marker) column++;
-		if(whichBlock.board[i][y] == who.marker) row++;
-		if(whichBlock.board[i][i] == who.marker) diagnal++;
-		if(whichBlock.board[i][length - i -1] == who.marker) antiDiagnal++; 
+		if(whichBlock.board[x][i] == this.currentMarker) column++;
+		if(whichBlock.board[i][y] == this.currentMarker) row++;
+		if(whichBlock.board[i][i] == this.currentMarker) diagnal++;
+		if(whichBlock.board[i][this.boardSize - i -1] == this.currentMarker) antiDiagnal++; 
 	}
+	
+	
 	
 	if(column >= this.boardSize || row >= this.boardSize || diagnal >= this.boardSize || antiDiagnal >= this.boardSize){
 		if(!whichBlock.mainBlock){
-			whichBlock.state == "won";
-			whichBlock.won = true;
-			mainBlock.board[x][y] = who.marker;
-			$("."+coordinates+".main-grid").addClass(who.marker);
-			console.log("you won");
-
-		}else{
-			console.log("you won");
+			whichBlock.won = true;			
+			whichBlock.filled = true;
+			this.board[whichBlock.x][whichBlock.y] = this.currentMarker;
+			$("."+coordinates+".main-grid").addClass(this.currentMarker);
+			this.CheckAllBoardPieces(this.turn);
 		}
 	}
 };
 
+TicTacToeGame.prototype.CheckAllBoardPieces = function(who){
+	var row = 0, column = 0, diagnal = 0, antiDiagnal = 0;
+
+	var foundAMatch = true;
+
+	for(var i = 0; i < this.boardSize; i++){
+		
+		if(this.board[i][i] == who.marker) diagnal++;
+		if(this.board[i][this.boardSize - i -1] == who.marker) antiDiagnal++; 		
+		row = 0;
+		column = 0;
+		for(var q = 0; q< this.boardSize; q++){
+			if(this.board[i][q] == who.marker) column++;
+			if(this.board[q][i] == who.marker) row++;
+
+			if(row >= 3 || column >= 3){
+				foundAMatch = false;
+				break;
+			}
+		}
+		if(!foundAMatch){
+			break;
+		}
+	}
+
+	if(column >= this.boardSize || row >= this.boardSize || diagnal >= this.boardSize || antiDiagnal >= this.boardSize){
+		console.log(who.name + " won the entire game");
+	}
+}
 
 TicTacToeGame.prototype.isLegalMove = function(clickedBlock){
 	var clickBlockElem = $(clickedBlock);
@@ -113,11 +142,14 @@ TicTacToeGame.prototype.isLegalMove = function(clickedBlock){
 	var currentBoardNumber = pattern.exec(clickBlockMain)[0];
 	var innerBoardNumber = pattern1.exec(classBlock)[0];
 
-	if((anyText == "" || anyText == null || anyText == " ") && !this["GameBoard-"+currentBoardNumber].won){
+	if((anyText == "" || anyText == null || anyText == " ") && !this["GameBoard-"+currentBoardNumber].won && !this["GameBoard-"+currentBoardNumber].filled && !this.won ){
 		this.noOfTurns++;
-		this.determineStateOfBlock(innerBoardNumber, this.turn, this["GameBoard-"+currentBoardNumber], this);
+		this.determineStateOfBlock(innerBoardNumber, this["GameBoard-"+currentBoardNumber]);
 		return true;
 	}else{
+		
+		this.CheckAllBoardPieces(this.player1);
+		this.CheckAllBoardPieces(this.player2);
 		return false;
 	}
 
