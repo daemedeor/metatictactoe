@@ -48,5 +48,8 @@
 		}
 		
 	});
-
+	$("#board").mouseleave(function(event) {
+		event.preventDefault();
+		$(".main-grid").removeClass('selected');
+	});
 })(jQuery);

@@ -20,6 +20,7 @@
 
 html{
   box-sizing: border-box;
+  font-size: 1.3em;
 }
 *, *:before, *:after{
   box-sizing: border-box;
@@ -32,6 +33,11 @@ ul{
     display: inline;
     list-style: none;
   }
+}
+
+a{
+  text-decoration: none;
+  color: black;
 }
 
 /* Top stylings */
@@ -64,7 +70,10 @@ span{
   float: right;
   cursor: pointer;
 }
-
+body.row{
+  margin: 0px;
+  background-color: #3DA9E7;
+}
 /* Grid Stylings */
 #container{
   margin-right: auto;
@@ -78,12 +87,17 @@ span{
     cursor: default;
 
   }
+  
+  .options{
+    margin: 15px;
+  }
 
   #board{
+    background-color: rgba(249, 249, 249, 0.88);
     -webkit-box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.75);
     box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.75);
-    padding: 15px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
     cursor: default;
     
 
@@ -98,9 +112,6 @@ span{
         border-right: none;
       }
 
-      &.next{
-        background-color: yellow;
-      }
     }
 
     .top{
@@ -120,7 +131,7 @@ span{
     font-size: 2em;
 
     &:hover{
-      background-color: yellow;
+      background-color: #FFA833;
       cursor: default;
 
     }
@@ -151,7 +162,7 @@ span{
     }
 
     &.selected{
-      background-color: rgba(0,0,0,.5) ;
+      background-color: rgba(0,0,0,.2) ;
     }
 
     &.x, &.o, &.tied{
@@ -206,24 +217,34 @@ span{
   }
 
 }
-  
-  @media (min-width: $screen-sm-min) {
-    #container div.inside-grid{
-      height: 45px;
-      padding: 0px 0px 0px 18px;
-    }
-  }
-  
-  @media (min-width: $screen-lg-min) {
-    
+
+.paragraph-blurb{
+  padding: 15px;
+}
+
+@media (min-width: $screen-sm-min) {
   #container div.inside-grid{
-    padding: 0px 0px 0px 18px;
+    height: 52px;
+    padding: 0px 0px 0px 15px;
   }
 }
+
+@media (min-width: 1110px) {  
+  #container div.inside-grid{
+    padding: 0px 0px 0px 33px;
+  }
+}
+
+@media (min-width: $screen-lg-min) {  
+  #container div.inside-grid{
+    padding: 0px 0px 0px 33px;
+  }
+}
+
 @media (min-width: $screen-hg-min) {
-    #container div.inside-grid{
+  #container div.inside-grid{
     height: 65px;
-    padding: 5px 0px 0px 34px;
-    font-size: 3em;
+    padding: 0px 0px 0px 30px;
+    font-size: 2.6em;
   }
 }

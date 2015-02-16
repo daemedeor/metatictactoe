@@ -3,8 +3,6 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { display: block; }
 
-body { line-height: 1; }
-
 ol, ul { list-style: none; }
 
 blockquote, q { quotes: none; }
@@ -314,12 +312,14 @@ h6, .h6 { font-size: 12px; }
   .col-lg-offset-10 { margin-left: 83.33333333%; }
   .col-lg-offset-11 { margin-left: 91.66666667%; }
   .col-lg-offset-12 { margin-left: 100%; } }
-html { box-sizing: border-box; }
+html { box-sizing: border-box; font-size: 1.3em; }
 
 *, *:before, *:after { box-sizing: border-box; }
 
 /* General Stylings */
 ul li { display: inline; list-style: none; }
+
+a { text-decoration: none; color: black; }
 
 /* Top stylings */
 #page-header { padding: 15px; }
@@ -330,23 +330,25 @@ nav a { display: inline-block; }
 
 span { padding: 15px; float: right; cursor: pointer; }
 
+body.row { margin: 0px; background-color: #3DA9E7; }
+
 /* Grid Stylings */
 #container { margin-right: auto; margin-left: auto; padding-left: 15px; padding-right: 15px; cursor: default; }
 #container .inside-container { padding: 10px; cursor: default; }
-#container #board { -webkit-box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.75); -moz-box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.75); box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.75); padding: 15px 0px 0px 0px; cursor: default; }
+#container .options { margin: 15px; }
+#container #board { background-color: rgba(249, 249, 249, 0.88); -webkit-box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.75); -moz-box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.75); box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.75); padding: 0px 0px 0px 0px; cursor: default; }
 #container #board .top, #container #board .middle, #container #board .bottom { border: 1px solid black; }
 #container #board .top.left, #container #board .middle.left, #container #board .bottom.left { border-left: none; }
 #container #board .top.right, #container #board .middle.right, #container #board .bottom.right { border-right: none; }
-#container #board .top.next, #container #board .middle.next, #container #board .bottom.next { background-color: yellow; }
 #container #board .top { border-top: none; }
 #container #board .bottom { border-bottom: none; }
 #container div.inside-grid { height: 0px; padding: 22px 0px 0px 0px; font-size: 2em; }
-#container div.inside-grid:hover { background-color: yellow; cursor: default; }
+#container div.inside-grid:hover { background-color: #FFA833; cursor: default; }
 #container .main-grid { padding: 10px; cursor: default; }
 #container .main-grid.disabled { background-color: rgba(0, 0, 0, 0.75); }
 #container .main-grid.disabled .inside-container .inside-grid:hover { background-color: transparent; }
 #container .main-grid.disabled .displayState { z-index: 9999; position: absolute; color: white; font-size: 3em; left: 45%; top: 35%; }
-#container .main-grid.selected { background-color: rgba(0, 0, 0, 0.5); }
+#container .main-grid.selected { background-color: rgba(0, 0, 0, 0.2); }
 #container .main-grid.x, #container .main-grid.o, #container .main-grid.tied { background-color: rgba(0, 0, 0, 0.95) !important; color: transparent; }
 #container .main-grid.x .inside-container .inside-grid:hover, #container .main-grid.o .inside-container .inside-grid:hover, #container .main-grid.tied .inside-container .inside-grid:hover { background-color: transparent; }
 #container .main-grid.x .displayState, #container .main-grid.o .displayState, #container .main-grid.tied .displayState { position: absolute; color: white; font-size: 3em; left: 45%; top: 35%; }
@@ -354,6 +356,9 @@ span { padding: 15px; float: right; cursor: pointer; }
 #container .main-grid.o .displayState:before { content: "O"; }
 #container .main-grid.tied .displayState { position: absolute; font-size: 3em; left: 45%; top: 35%; }
 
-@media (min-width: 768px) { #container div.inside-grid { height: 45px; padding: 0px 0px 0px 18px; } }
-@media (min-width: 1200px) { #container div.inside-grid { padding: 0px 0px 0px 18px; } }
-@media (min-width: 1895px) { #container div.inside-grid { height: 65px; padding: 5px 0px 0px 34px; font-size: 3em; } }
+.paragraph-blurb { padding: 15px; }
+
+@media (min-width: 768px) { #container div.inside-grid { height: 52px; padding: 0px 0px 0px 15px; } }
+@media (min-width: 1110px) { #container div.inside-grid { padding: 0px 0px 0px 33px; } }
+@media (min-width: 1200px) { #container div.inside-grid { padding: 0px 0px 0px 33px; } }
+@media (min-width: 1895px) { #container div.inside-grid { height: 65px; padding: 0px 0px 0px 30px; font-size: 2.6em; } }

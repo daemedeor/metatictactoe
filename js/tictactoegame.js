@@ -141,10 +141,10 @@ TicTacToeGame.prototype.CheckAllBoardPieces = function(who){
 		console.log(who.name + " won the entire game");
 		currentPlayer = who;
 			
-		if(currentPlayer == player1){
-			loser = player2;
+		if(currentPlayer == this.player1){
+			loser = this.player2;
 		}else{
-			loser = player1;
+			loser = this.player1;
 		}
 		this.determineWinner("won", who, loser);
 	}
