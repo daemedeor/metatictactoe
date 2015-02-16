@@ -129,6 +129,8 @@ span{
   .main-grid{
     padding: 10px;
     cursor: default;
+    
+   
 
     &.disabled{
       background-color: rgba(0,0,0,.75);
@@ -146,6 +148,10 @@ span{
         top: 35%;
       
       }
+    }
+
+    &.selected{
+      background-color: rgba(0,0,0,.5) ;
     }
 
     &.x, &.o, &.tied{

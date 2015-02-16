@@ -12,10 +12,10 @@
 			currentMarker = game.currentMarker;
 			currentPlayer = game.turn;
 			
-			if(currentPlayer == player1){
-				nextPlayer = player2;
+			if(currentPlayer == game.player1){
+				nextPlayer = game.player2;
 			}else{
-				nextPlayer = player1;
+				nextPlayer = game.player1;
 			}
 			
 					
@@ -37,9 +37,16 @@
 	});
 
 	$(".inside-grid").mouseenter(function(event) {
+		$(".main-grid").removeClass('selected');
 		event.preventDefault();
+		var currElem = $(this).parent().parent(".main-grid");
 		var currClass = $(this).attr("class");
-		currClass.h
+		if(!currElem.hasClass('disabled')){
+			var pattern1 = /(\d{1}-\d{1})/g;
+			var innerBoardNumber = pattern1.exec(currClass)[0];
+			$(".main-grid."+innerBoardNumber).addClass('selected');	
+		}
+		
 	});
 
 })(jQuery);
