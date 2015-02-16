@@ -307,6 +307,11 @@ $screen-lg-min:              $screen-lg !default;
 //** Deprecated `$screen-lg-desktop` as of v3.0.1
 $screen-lg-desktop:          $screen-lg-min !default;
 
+$screen-hg:                  1895px !default;
+$screen-hg-min:              $screen-hg !default;
+//** Deprecated `$screen-lg-desktop` as of v3.0.1
+$screen-hg-desktop:          $screen-hg-min !default;
+
 // So media queries don't overlap when required, provide a maximum
 $screen-xs-max:              ($screen-sm-min - 1) !default;
 $screen-sm-max:              ($screen-md-min - 1) !default;
@@ -346,6 +351,11 @@ $container-md:                 $container-desktop !default;
 $container-large-desktop:      (1140px + $grid-gutter-width) !default;
 //** For `$screen-lg-min` and up.
 $container-lg:                 $container-large-desktop !default;
+
+// huge screen / wide desktop
+$container-huge-desktop:      (1895px + $grid-gutter-width) !default;
+//** For `$screen-lg-min` and up.
+$container-huge:                 $container-huge-desktop !default;
 
 
 //== Navbar

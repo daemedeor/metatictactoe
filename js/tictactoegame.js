@@ -26,6 +26,7 @@ function SmallerGameBoard(){
 	this.filled = false;
 	this.mainBlock = false;
 	this.x;
+	this.numOfMoves = 0;
 	this.y;
 };
 
@@ -49,7 +50,9 @@ TicTacToeGame.prototype.addBoard = function(boardName, boardObject) {
 };
 
 TicTacToeGame.prototype.refreshGame = function() {
-	$(".main-grid").data("filled") = false;
+	$(".main-grid").removeClass('x');
+	$(".main-grid").removeClass('o');
+	$(".main-grid").removeClass('tied');
 	$(".inside-grid").html("");
 	this.SetUpGame();
 };
@@ -79,7 +82,7 @@ TicTacToeGame.prototype.determineStateOfBlock = function(coordinates, whichBlock
 	var x = coordinates.charAt(0);
 	var y = coordinates.charAt(2);
 
-	
+	whichBlock.numOfMoves++;
 	whichBlock.board[x][y] = this.currentMarker;
 	for(var i = 0; i < this.boardSize; i++){
 		if(whichBlock.board[x][i] == this.currentMarker) column++;
@@ -88,16 +91,20 @@ TicTacToeGame.prototype.determineStateOfBlock = function(coordinates, whichBlock
 		if(whichBlock.board[i][this.boardSize - i -1] == this.currentMarker) antiDiagnal++; 
 	}
 	
-	
-	
 	if(column >= this.boardSize || row >= this.boardSize || diagnal >= this.boardSize || antiDiagnal >= this.boardSize){
 		if(!whichBlock.mainBlock){
 			whichBlock.won = true;			
 			whichBlock.filled = true;
 			this.board[whichBlock.x][whichBlock.y] = this.currentMarker;
-			$("."+coordinates+".main-grid").addClass(this.currentMarker);
+			$("."+whichBlock.x+"-"+whichBlock.y+".main-grid").addClass(this.currentMarker);
 			this.CheckAllBoardPieces(this.turn);
 		}
+	}
+	if(whichBlock.numOfMoves == (this.boardSize * this.boardSize)){
+		whichBlock.filled = true;
+		this.board[whichBlock.x][whichBlock.y] = "p";
+			$("."+whichBlock.x+"-"+whichBlock.y+".main-grid").addClass("tied");
+
 	}
 };
 
@@ -134,7 +141,6 @@ TicTacToeGame.prototype.CheckAllBoardPieces = function(who){
 TicTacToeGame.prototype.isLegalMove = function(clickedBlock){
 	var clickBlockElem = $(clickedBlock);
 	var clickBlockMain = $(clickedBlock).parent().parent(".main-grid").attr("class");
-	console.log(clickBlockMain);
 	var anyText = clickBlockElem.html();
 	var classBlock = clickBlockElem.attr("class");
 	var pattern = /(\d{1}-\d{1})/g;
@@ -145,6 +151,8 @@ TicTacToeGame.prototype.isLegalMove = function(clickedBlock){
 	if((anyText == "" || anyText == null || anyText == " ") && !this["GameBoard-"+currentBoardNumber].won && !this["GameBoard-"+currentBoardNumber].filled && !this.won ){
 		this.noOfTurns++;
 		this.determineStateOfBlock(innerBoardNumber, this["GameBoard-"+currentBoardNumber]);
+		$(".main-grid").addClass('disabled');
+		$(".main-grid."+innerBoardNumber).removeClass('disabled');
 		return true;
 	}else{
 		
@@ -153,4 +161,9 @@ TicTacToeGame.prototype.isLegalMove = function(clickedBlock){
 		return false;
 	}
 
+};
+
+TicTacToeGame.prototype.isRightBox
+ = function(first_argument) {
+	// body...
 };

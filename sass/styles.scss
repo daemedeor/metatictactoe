@@ -71,9 +71,12 @@ span{
   margin-left: auto;
   padding-left: 15px;
   padding-right: 15px;
+  cursor: default;
 
   .inside-container{
     padding: 10px;
+    cursor: default;
+
   }
 
   #board{
@@ -81,6 +84,8 @@ span{
     -moz-box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.75);
     box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.75);
     padding: 15px 0px 0px 0px;
+    cursor: default;
+    
 
     .top, .middle, .bottom{
       border: 1px solid black;
@@ -108,18 +113,83 @@ span{
 
   }
   
-  .main-grid{
-    padding: 10px;
-  }
-
   div.inside-grid{
-    height: 50px;
-    padding: 6px 0px 0px 33px;
+
+    height: 0px;
+    padding: 22px 0px 0px 0px;
     font-size: 2em;
 
     &:hover{
       background-color: yellow;
+      cursor: default;
+
     }
   }
-}
+  
+  .main-grid{
+    padding: 10px;
+    cursor: default;
 
+    &.disabled{
+      background-color: rgba(0,0,0,.75);
+      
+      .inside-container .inside-grid:hover{
+        background-color: transparent;
+      }
+
+      .displayState{
+        z-index: 9999;
+        position: absolute;
+        color: white;
+        font-size: 3em;
+        left: 45%;
+        top: 35%;
+      
+      }
+    }
+
+    &.x, &.o, &.tied{
+      background-color: rgba(0,0,0,.95);
+      color: transparent;
+
+      .inside-container .inside-grid:hover{
+        background-color: transparent;
+      }
+
+      .displayState{
+        position: absolute;
+        color: white;
+        font-size: 3em;
+        left: 45%;
+        top: 35%;
+      
+      }
+
+
+    }
+
+
+  }
+
+}
+  
+  @media (min-width: $screen-sm-min) {
+    #container div.inside-grid{
+      height: 45px;
+      padding: 0px 0px 0px 18px;
+    }
+  }
+  
+  @media (min-width: $screen-lg-min) {
+    
+  #container div.inside-grid{
+    padding: 0px 0px 0px 18px;
+  }
+}
+@media (min-width: $screen-hg-min) {
+    #container div.inside-grid{
+    height: 65px;
+    padding: 5px 0px 0px 34px;
+    font-size: 3em;
+  }
+}
