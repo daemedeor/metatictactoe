@@ -17,7 +17,7 @@
 			nextPlayer = player1;
 		}
 		
-		var clickBlockClass = $(clickedBlock).attr("class");
+		//var clickBlockClass = $(clickedBlock).attr("class");
 				
 		if(game.isLegalMove(this)){
 			
