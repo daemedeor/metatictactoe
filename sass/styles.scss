@@ -1,8 +1,114 @@
 // Import custom Bootstrap variables
+@import "./partials/reset";
 @import "./partials/bootstrap-variables";
+@import "./partials/type";
 @import "./partials/clearfix";
 @import "./partials/bootstrap-grid";
 @import "./partials/vendor-prefixes";
 @import "./partials/grid-system";
 @import "./partials/mixins";
 @import "./partials/variables";
+
+html{
+  box-sizing: border-box;
+}
+*, *:before, *:after{
+  box-sizing: border-box;
+}
+
+/* General Stylings */
+ul{
+
+  li{
+    display: inline;
+    list-style: none;
+  }
+}
+
+/* Top stylings */
+#page-header{
+  padding: 15px;
+}
+
+nav{
+  font-size: 1.5em;
+  margin: 0px auto;
+  line-height: 1.5em;
+  letter-spacing: 0.08em;
+  text-align: center;
+
+  ul{
+    
+    li{
+      display: inline;
+      padding: 15px 0px 15px 15px;
+    }
+  }
+
+  a{
+    display: inline-block;
+  }
+}
+
+span{
+  padding: 15px;
+  float: right;
+  cursor: pointer;
+}
+
+/* Grid Stylings */
+#container{
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+
+  .inside-container{
+    padding: 10px;
+  }
+
+  #board{
+    -webkit-box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.75);
+    box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.75);
+    padding: 15px 0px 0px 0px;
+
+    .top, .middle, .bottom{
+      border: 1px solid black;
+      
+      &.left{
+        border-left: none;
+      }
+      
+      &.right{
+        border-right: none;
+      }
+
+      &.next{
+        background-color: yellow;
+      }
+    }
+
+    .top{
+      border-top: none; 
+    }
+    
+    .bottom{
+      border-bottom: none;
+    }
+
+  }
+  
+  .main-grid{
+    padding: 10px;
+  }
+
+  div.inside-grid{
+    height: 50px;
+
+    &:hover{
+      background-color: yellow;
+    }
+  }
+}
+

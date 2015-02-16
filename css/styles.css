@@ -1,3 +1,42 @@
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video { margin: 0; padding: 0; border: 0; font-size: 100%; font: inherit; vertical-align: baseline; }
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { display: block; }
+
+body { line-height: 1; }
+
+ol, ul { list-style: none; }
+
+blockquote, q { quotes: none; }
+
+blockquote:before, blockquote:after { content: ''; content: none; }
+
+q:before, q:after { content: ''; content: none; }
+
+table { border-collapse: collapse; border-spacing: 0; }
+
+h1, .h1 { font-size: 36px; }
+
+h2, .h2 { font-size: 30px; }
+
+h3, .h3 { font-size: 24px; }
+
+h4, .h4 { font-size: 18px; }
+
+h5, .h5 { font-size: 14px; }
+
+h6, .h6 { font-size: 12px; }
+
+.text-left { text-align: left; }
+
+.text-right { text-align: right; }
+
+.text-center { text-align: center; }
+
+.text-justify { text-align: justify; }
+
+.text-nowrap { white-space: nowrap; }
+
 .container { margin-right: auto; margin-left: auto; padding-left: 15px; padding-right: 15px; }
 .container:before, .container:after { content: " "; display: table; }
 .container:after { clear: both; }
@@ -275,3 +314,32 @@
   .col-lg-offset-10 { margin-left: 83.33333333%; }
   .col-lg-offset-11 { margin-left: 91.66666667%; }
   .col-lg-offset-12 { margin-left: 100%; } }
+html { box-sizing: border-box; }
+
+*, *:before, *:after { box-sizing: border-box; }
+
+/* General Stylings */
+ul li { display: inline; list-style: none; }
+
+/* Top stylings */
+#page-header { padding: 15px; }
+
+nav { font-size: 1.5em; margin: 0px auto; line-height: 1.5em; letter-spacing: 0.08em; text-align: center; }
+nav ul li { display: inline; padding: 15px 0px 15px 15px; }
+nav a { display: inline-block; }
+
+span { padding: 15px; float: right; cursor: pointer; }
+
+/* Grid Stylings */
+#container { margin-right: auto; margin-left: auto; padding-left: 15px; padding-right: 15px; }
+#container .inside-container { padding: 10px; }
+#container #board { -webkit-box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.75); -moz-box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.75); box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.75); padding: 15px 0px 0px 0px; }
+#container #board .top, #container #board .middle, #container #board .bottom { border: 1px solid black; }
+#container #board .top.left, #container #board .middle.left, #container #board .bottom.left { border-left: none; }
+#container #board .top.right, #container #board .middle.right, #container #board .bottom.right { border-right: none; }
+#container #board .top.next, #container #board .middle.next, #container #board .bottom.next { background-color: yellow; }
+#container #board .top { border-top: none; }
+#container #board .bottom { border-bottom: none; }
+#container .main-grid { padding: 10px; }
+#container div.inside-grid { height: 50px; }
+#container div.inside-grid:hover { background-color: yellow; }

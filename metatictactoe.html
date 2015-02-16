@@ -1,13 +1,166 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Meta-tictactoe</title>
-	<link rel="stylesheet" href="/css/stylesheet.css">
-</head>
-<body>
-	<div class="board">
-	
-	<div>
-</body>
+  <head>
+    <meta charset="UTF-8">
+    <title>Meta-tictactoe</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script type="text/javascript" src="libs/jquery-2.1.3.min.js"></script>
+    
+  </head>
+  <body>
+    <h1 class="text-center" id="page-header"> Meta Tic Tac Toe Game </h1>
+    <nav class="row">
+        <ul>
+          <li>About</li>
+          <li>Contact</li>
+          <li>Github</li>
+        </ul>
+    </nav>
+
+    <div id="content row">
+      <div id="container">
+
+        <div class="options">
+          <span id="reset">Reset Game</span>
+         
+          <div class="hide-on-sm">
+            <span id="online">Play Online</span>
+            <span id="computer">Play Computer</span>
+            <span id="person">Play VS</span>
+          </div>
+        </div>
+
+        <div class="col-xs-12" id="board">
+
+          <div class="col-xs-4 left top main-grid" data-filled="false" id="main-left-1">
+            <div class="col-xs-12 inside-container">
+              <div class="left top 1-1 col-xs-4 inside-grid"></div>
+              <div class="center top 1-1 col-xs-4 inside-grid"></div>
+              <div class="right top 1-1 col-xs-4 inside-grid"></div>
+              <div class="left middle 2-2 col-xs-4 inside-grid"></div>
+              <div class="center middle 2-2 col-xs-4 inside-grid"></div>
+              <div class="right middle 2-2 col-xs-4 inside-grid"></div>
+              <div class="left bottom 3-3 col-xs-4 inside-grid"></div>
+              <div class="center bottom 3-3 col-xs-4 inside-grid"></div>
+              <div class="right bottom 3-3 col-xs-4 inside-grid"></div>
+            </div>
+          </div>
+
+          <div class="col-xs-4 center top main-grid" data-filled="false" id="main-center-1">
+            <div class="col-xs-12 inside-container">
+              <div class="left top 1-1 col-xs-4 inside-grid"></div>
+              <div class="center top 1-1 col-xs-4 inside-grid"></div>
+              <div class="right top 1-1 col-xs-4 inside-grid"></div>
+              <div class="left middle 2-2 col-xs-4 inside-grid"></div>
+              <div class="center middle 2-2 col-xs-4 inside-grid"></div>
+              <div class="right middle 2-2 col-xs-4 inside-grid"></div>
+              <div class="left bottom 3-3 col-xs-4 inside-grid"></div>
+              <div class="center bottom 3-3 col-xs-4 inside-grid"></div>
+              <div class="right bottom 3-3 col-xs-4 inside-grid"></div>
+            </div>
+          </div>
+
+          <div class="col-xs-4 right top main-grid" data-filled="false" id="main-right-1">
+            <div class="col-xs-12 inside-container">
+              <div class="left top 1-1 col-xs-4 inside-grid"></div>
+              <div class="center top 1-1 col-xs-4 inside-grid"></div>
+              <div class="right top 1-1 col-xs-4 inside-grid"></div>
+              <div class="left middle 2-2 col-xs-4 inside-grid"></div>
+              <div class="center middle 2-2 col-xs-4 inside-grid"></div>
+              <div class="right middle 2-2 col-xs-4 inside-grid"></div>
+              <div class="left bottom 3-3 col-xs-4 inside-grid"></div>
+              <div class="center bottom 3-3 col-xs-4 inside-grid"></div>
+              <div class="right bottom 3-3 col-xs-4 inside-grid"></div>
+            </div>
+          </div>
+
+          <div class="col-xs-4 left middle main-grid" data-filled="false" id="main-left-2">
+            <div class="col-xs-12 inside-container">
+              <div class="left top 1-1 col-xs-4 inside-grid"></div>
+              <div class="center top 1-1 col-xs-4 inside-grid"></div>
+              <div class="right top 1-1 col-xs-4 inside-grid"></div>
+              <div class="left middle 2-2 col-xs-4 inside-grid"></div>
+              <div class="center middle 2-2 col-xs-4 inside-grid"></div>
+              <div class="right middle 2-2 col-xs-4 inside-grid"></div>
+              <div class="left bottom 3-3 col-xs-4 inside-grid"></div>
+              <div class="center bottom 3-3 col-xs-4 inside-grid"></div>
+              <div class="right bottom 3-3 col-xs-4 inside-grid"></div>
+            </div>
+          </div>
+
+          <div class="col-xs-4 center middle main-grid" data-filled="false" id="main-center-2">
+            <div class="col-xs-12 inside-container">
+              <div class="left top 1-1 col-xs-4 inside-grid"></div>
+              <div class="center top 1-1 col-xs-4 inside-grid"></div>
+              <div class="right top 1-1 col-xs-4 inside-grid"></div>
+              <div class="left middle 2-2 col-xs-4 inside-grid"></div>
+              <div class="center middle 2-2 col-xs-4 inside-grid"></div>
+              <div class="right middle 2-2 col-xs-4 inside-grid"></div>
+              <div class="left bottom 3-3 col-xs-4 inside-grid"></div>
+              <div class="center bottom 3-3 col-xs-4 inside-grid"></div>
+              <div class="right bottom 3-3 col-xs-4 inside-grid"></div>
+            </div>
+          </div>
+
+          <div class="col-xs-4 right middle main-grid" data-filled="false" id="main-right-2">
+            <div class="col-xs-12 inside-container">
+              <div class="left top 1-1 col-xs-4 inside-grid"></div>
+              <div class="center top 1-1 col-xs-4 inside-grid"></div>
+              <div class="right top 1-1 col-xs-4 inside-grid"></div>
+              <div class="left middle 2-2 col-xs-4 inside-grid"></div>
+              <div class="center middle 2-2 col-xs-4 inside-grid"></div>
+              <div class="right middle 2-2 col-xs-4 inside-grid"></div>
+              <div class="left bottom 3-3 col-xs-4 inside-grid"></div>
+              <div class="center bottom 3-3 col-xs-4 inside-grid"></div>
+              <div class="right bottom 3-3 col-xs-4 inside-grid"></div>
+            </div>
+          </div>
+
+          <div class="col-xs-4 left bottom main-grid" data-filled="false" id="main-left-3">
+            <div class="col-xs-12 inside-container">
+              <div class="left top 1-1 col-xs-4 inside-grid"></div>
+              <div class="center top 1-1 col-xs-4 inside-grid"></div>
+              <div class="right top 1-1 col-xs-4 inside-grid"></div>
+              <div class="left middle 2-2 col-xs-4 inside-grid"></div>
+              <div class="center middle 2-2 col-xs-4 inside-grid"></div>
+              <div class="right middle 2-2 col-xs-4 inside-grid"></div>
+              <div class="left bottom 3-3 col-xs-4 inside-grid"></div>
+              <div class="center bottom 3-3 col-xs-4 inside-grid"></div>
+              <div class="right bottom 3-3 col-xs-4 inside-grid"></div>
+            </div>
+          </div>
+          
+          <div class="col-xs-4 center bottom main-grid" data-filled="false" id="main-center-3">
+            <div class="col-xs-12 inside-container">
+              <div class="left top 1-1 col-xs-4 inside-grid"></div>
+              <div class="center top 1-1 col-xs-4 inside-grid"></div>
+              <div class="right top 1-1 col-xs-4 inside-grid"></div>
+              <div class="left middle 2-2 col-xs-4 inside-grid"></div>
+              <div class="center middle 2-2 col-xs-4 inside-grid"></div>
+              <div class="right middle 2-2 col-xs-4 inside-grid"></div>
+              <div class="left bottom 3-3 col-xs-4 inside-grid"></div>
+              <div class="center bottom 3-3 col-xs-4 inside-grid"></div>
+              <div class="right bottom 3-3 col-xs-4 inside-grid"></div>
+            </div>
+          </div>
+          
+          <div class="col-xs-4 right bottom main-grid" data-filled="false" id="main-right-3">
+            <div class="col-xs-12 inside-container">
+              <div class="left top 1-1 col-xs-4 inside-grid"></div>
+              <div class="center top 1-1 col-xs-4 inside-grid"></div>
+              <div class="right top 1-1 col-xs-4 inside-grid"></div>
+              <div class="left middle 2-2 col-xs-4 inside-grid"></div>
+              <div class="center middle 2-2 col-xs-4 inside-grid"></div>
+              <div class="right middle 2-2 col-xs-4 inside-grid"></div>
+              <div class="left bottom 3-3 col-xs-4 inside-grid"></div>
+              <div class="center bottom 3-3 col-xs-4 inside-grid"></div>
+              <div class="right bottom 3-3 col-xs-4 inside-grid"></div>
+            </div>
+          </div>
+
+        </div>
+    </div>
+    
+    <script type="text/javascript" src="js/logic.js"></script>
+  </body>
 </html>
