@@ -346,9 +346,12 @@ span { padding: 15px; float: right; cursor: pointer; }
 #container .main-grid.disabled { background-color: rgba(0, 0, 0, 0.75); }
 #container .main-grid.disabled .inside-container .inside-grid:hover { background-color: transparent; }
 #container .main-grid.disabled .displayState { z-index: 9999; position: absolute; color: white; font-size: 3em; left: 45%; top: 35%; }
-#container .main-grid.x, #container .main-grid.o, #container .main-grid.tied { background-color: rgba(0, 0, 0, 0.95); color: transparent; }
+#container .main-grid.x, #container .main-grid.o, #container .main-grid.tied { background-color: rgba(0, 0, 0, 0.95) !important; color: transparent; }
 #container .main-grid.x .inside-container .inside-grid:hover, #container .main-grid.o .inside-container .inside-grid:hover, #container .main-grid.tied .inside-container .inside-grid:hover { background-color: transparent; }
 #container .main-grid.x .displayState, #container .main-grid.o .displayState, #container .main-grid.tied .displayState { position: absolute; color: white; font-size: 3em; left: 45%; top: 35%; }
+#container .main-grid.x .displayState:before { content: "X"; }
+#container .main-grid.o .displayState:before { content: "O"; }
+#container .main-grid.tied .displayState { position: absolute; font-size: 3em; left: 45%; top: 35%; }
 
 @media (min-width: 768px) { #container div.inside-grid { height: 45px; padding: 0px 0px 0px 18px; } }
 @media (min-width: 1200px) { #container div.inside-grid { padding: 0px 0px 0px 18px; } }

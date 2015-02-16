@@ -8,7 +8,7 @@
 	$(".inside-grid").click(function(e){
 		e.preventDefault();
 		var clickBlockMain = $(this).parent().parent(".main-grid");
-		if(!clickBlockMain.hasClass('disabled') && !clickBlockMain.hasClass('x') && !clickBlockMain.hasClass('o') && !clickBlockMain.hasClass('tied')){
+		if(!clickBlockMain.hasClass('disabled') && !clickBlockMain.hasClass('x') && !clickBlockMain.hasClass('o') && !clickBlockMain.hasClass('tied') && !game.won){
 			currentMarker = game.currentMarker;
 			currentPlayer = game.turn;
 			
@@ -28,11 +28,18 @@
 			}
 	
 		}
-		
+		game.CheckAllBoardPieces(game.player1);
+		game.CheckAllBoardPieces(game.player2);
 	});
 
 	$("#reset").click(function(e){
 		game.refreshGame();
+	});
+
+	$(".inside-grid").mouseenter(function(event) {
+		event.preventDefault();
+		var currClass = $(this).attr("class");
+		currClass.h
 	});
 
 })(jQuery);

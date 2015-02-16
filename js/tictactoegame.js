@@ -10,7 +10,7 @@ function Player(name, marker, wins, losses, ties){
 function TicTacToeGame(player1, player2, noOfTurns){
 	this.player1 = player1;
 	this.player2 = player2;
-	this.noOfTurns = noOfTurns;
+	this.numOfMoves = noOfTurns;
 	this.turn = player1;
 	this.boardSize = 3;
 	this.mainBlock = true;
@@ -53,22 +53,27 @@ TicTacToeGame.prototype.refreshGame = function() {
 	$(".main-grid").removeClass('x');
 	$(".main-grid").removeClass('o');
 	$(".main-grid").removeClass('tied');
+	$(".main-grid").removeClass('disabled');
 	$(".inside-grid").html("");
 	this.SetUpGame();
 };
 
 TicTacToeGame.prototype.determineWinner = function(stateOfGame, whoWon, whoLost){
-
 	if(whoWon != null && whoLost != null){
 
 		if(stateOfGame == "done"){
+			this.won = true;
 			whoWon.wins++;
 			whoLost.losses++;	
 		}
-		if(stateOfGame == "tied"){
-			whoWon.ties++;
-			whoLost.ties++;
-		}		
+		
+		$("#container > .displayState").html(whoWon.marker + " has won!");
+		$("#container > .displayState").addClass('finished');
+
+	}
+	if(stateOfGame == "tied"){
+		this.player1.ties++;
+		this.player2.ties++;
 	}
 };
 
@@ -104,7 +109,6 @@ TicTacToeGame.prototype.determineStateOfBlock = function(coordinates, whichBlock
 		whichBlock.filled = true;
 		this.board[whichBlock.x][whichBlock.y] = "p";
 			$("."+whichBlock.x+"-"+whichBlock.y+".main-grid").addClass("tied");
-
 	}
 };
 
@@ -135,6 +139,19 @@ TicTacToeGame.prototype.CheckAllBoardPieces = function(who){
 
 	if(column >= this.boardSize || row >= this.boardSize || diagnal >= this.boardSize || antiDiagnal >= this.boardSize){
 		console.log(who.name + " won the entire game");
+		currentPlayer = who;
+			
+		if(currentPlayer == player1){
+			loser = player2;
+		}else{
+			loser = player1;
+		}
+		this.determineWinner("won", who, loser);
+	}
+	if(this.numOfMoves == (this.boardSize * this.boardSize)){
+		whichBlock.filled = true;
+		this.board[whichBlock.x][whichBlock.y] = "p";
+			$("."+whichBlock.x+"-"+whichBlock.y+".main-grid").addClass("tied");
 	}
 }
 
@@ -151,8 +168,19 @@ TicTacToeGame.prototype.isLegalMove = function(clickedBlock){
 	if((anyText == "" || anyText == null || anyText == " ") && !this["GameBoard-"+currentBoardNumber].won && !this["GameBoard-"+currentBoardNumber].filled && !this.won ){
 		this.noOfTurns++;
 		this.determineStateOfBlock(innerBoardNumber, this["GameBoard-"+currentBoardNumber]);
-		$(".main-grid").addClass('disabled');
-		$(".main-grid."+innerBoardNumber).removeClass('disabled');
+		if(!$(".main-grid."+innerBoardNumber).hasClass('x') && !$(".main-grid."+innerBoardNumber).hasClass('o') && !$(".main-grid."+innerBoardNumber).hasClass('tied') ){
+			
+			$(".main-grid").addClass('disabled');
+			$(".main-grid."+innerBoardNumber).removeClass('disabled');
+			$(".main-grid.x").removeClass('disabled');
+			$(".main-grid.o").removeClass('disabled');
+			$(".main-grid.tied").removeClass('disabled');
+
+		}else{
+			$(".main-grid").removeClass('disabled');
+
+		}
+
 		return true;
 	}else{
 		

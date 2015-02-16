@@ -149,7 +149,7 @@ span{
     }
 
     &.x, &.o, &.tied{
-      background-color: rgba(0,0,0,.95);
+      background-color: rgba(0,0,0,.95) !important;
       color: transparent;
 
       .inside-container .inside-grid:hover{
@@ -165,10 +165,38 @@ span{
       
       }
 
-
     }
 
+    &.x{    
+      .displayState{
 
+        &:before{
+          content: "X";
+        }
+      }
+    }
+
+    &.o{
+    
+      .displayState{
+
+        &:before{
+          content: "O";
+        }
+      }
+    }
+
+    &.tied{
+    
+      .displayState{
+
+        position: absolute;
+        font-size: 3em;
+        left: 45%;
+        top: 35%;
+
+      }
+    }
   }
 
 }
