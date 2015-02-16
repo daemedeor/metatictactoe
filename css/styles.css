@@ -341,5 +341,5 @@ span { padding: 15px; float: right; cursor: pointer; }
 #container #board .top { border-top: none; }
 #container #board .bottom { border-bottom: none; }
 #container .main-grid { padding: 10px; }
-#container div.inside-grid { height: 50px; }
+#container div.inside-grid { height: 50px; padding: 6px 0px 0px 33px; font-size: 2em; }
 #container div.inside-grid:hover { background-color: yellow; }

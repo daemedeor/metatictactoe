@@ -5,6 +5,7 @@
     <title>Meta-tictactoe</title>
     <link rel="stylesheet" href="css/styles.css">
     <script type="text/javascript" src="libs/jquery-2.1.3.min.js"></script>
+    <script type="text/javascript" src="js/tictactoegame.js"></script>
     
   </head>
   <body>
@@ -35,13 +36,13 @@
           <div class="col-xs-4 left top main-grid" data-filled="false" id="main-left-1">
             <div class="col-xs-12 inside-container">
               <div class="left top 1-1 col-xs-4 inside-grid"></div>
-              <div class="center top 1-1 col-xs-4 inside-grid"></div>
-              <div class="right top 1-1 col-xs-4 inside-grid"></div>
-              <div class="left middle 2-2 col-xs-4 inside-grid"></div>
+              <div class="center top 1-2 col-xs-4 inside-grid"></div>
+              <div class="right top 1-3 col-xs-4 inside-grid"></div>
+              <div class="left middle 2-1 col-xs-4 inside-grid"></div>
               <div class="center middle 2-2 col-xs-4 inside-grid"></div>
-              <div class="right middle 2-2 col-xs-4 inside-grid"></div>
-              <div class="left bottom 3-3 col-xs-4 inside-grid"></div>
-              <div class="center bottom 3-3 col-xs-4 inside-grid"></div>
+              <div class="right middle 2-3 col-xs-4 inside-grid"></div>
+              <div class="left bottom 3-1 col-xs-4 inside-grid"></div>
+              <div class="center bottom 3-2 col-xs-4 inside-grid"></div>
               <div class="right bottom 3-3 col-xs-4 inside-grid"></div>
             </div>
           </div>
@@ -49,13 +50,13 @@
           <div class="col-xs-4 center top main-grid" data-filled="false" id="main-center-1">
             <div class="col-xs-12 inside-container">
               <div class="left top 1-1 col-xs-4 inside-grid"></div>
-              <div class="center top 1-1 col-xs-4 inside-grid"></div>
-              <div class="right top 1-1 col-xs-4 inside-grid"></div>
-              <div class="left middle 2-2 col-xs-4 inside-grid"></div>
+              <div class="center top 1-2 col-xs-4 inside-grid"></div>
+              <div class="right top 1-3 col-xs-4 inside-grid"></div>
+              <div class="left middle 2-1 col-xs-4 inside-grid"></div>
               <div class="center middle 2-2 col-xs-4 inside-grid"></div>
-              <div class="right middle 2-2 col-xs-4 inside-grid"></div>
-              <div class="left bottom 3-3 col-xs-4 inside-grid"></div>
-              <div class="center bottom 3-3 col-xs-4 inside-grid"></div>
+              <div class="right middle 2-3 col-xs-4 inside-grid"></div>
+              <div class="left bottom 3-1 col-xs-4 inside-grid"></div>
+              <div class="center bottom 3-2 col-xs-4 inside-grid"></div>
               <div class="right bottom 3-3 col-xs-4 inside-grid"></div>
             </div>
           </div>
@@ -63,13 +64,13 @@
           <div class="col-xs-4 right top main-grid" data-filled="false" id="main-right-1">
             <div class="col-xs-12 inside-container">
               <div class="left top 1-1 col-xs-4 inside-grid"></div>
-              <div class="center top 1-1 col-xs-4 inside-grid"></div>
-              <div class="right top 1-1 col-xs-4 inside-grid"></div>
-              <div class="left middle 2-2 col-xs-4 inside-grid"></div>
+              <div class="center top 1-2 col-xs-4 inside-grid"></div>
+              <div class="right top 1-3 col-xs-4 inside-grid"></div>
+              <div class="left middle 2-1 col-xs-4 inside-grid"></div>
               <div class="center middle 2-2 col-xs-4 inside-grid"></div>
-              <div class="right middle 2-2 col-xs-4 inside-grid"></div>
-              <div class="left bottom 3-3 col-xs-4 inside-grid"></div>
-              <div class="center bottom 3-3 col-xs-4 inside-grid"></div>
+              <div class="right middle 2-3 col-xs-4 inside-grid"></div>
+              <div class="left bottom 3-1 col-xs-4 inside-grid"></div>
+              <div class="center bottom 3-2 col-xs-4 inside-grid"></div>
               <div class="right bottom 3-3 col-xs-4 inside-grid"></div>
             </div>
           </div>
@@ -77,13 +78,13 @@
           <div class="col-xs-4 left middle main-grid" data-filled="false" id="main-left-2">
             <div class="col-xs-12 inside-container">
               <div class="left top 1-1 col-xs-4 inside-grid"></div>
-              <div class="center top 1-1 col-xs-4 inside-grid"></div>
-              <div class="right top 1-1 col-xs-4 inside-grid"></div>
-              <div class="left middle 2-2 col-xs-4 inside-grid"></div>
+              <div class="center top 1-2 col-xs-4 inside-grid"></div>
+              <div class="right top 1-3 col-xs-4 inside-grid"></div>
+              <div class="left middle 2-1 col-xs-4 inside-grid"></div>
               <div class="center middle 2-2 col-xs-4 inside-grid"></div>
-              <div class="right middle 2-2 col-xs-4 inside-grid"></div>
-              <div class="left bottom 3-3 col-xs-4 inside-grid"></div>
-              <div class="center bottom 3-3 col-xs-4 inside-grid"></div>
+              <div class="right middle 2-3 col-xs-4 inside-grid"></div>
+              <div class="left bottom 3-1 col-xs-4 inside-grid"></div>
+              <div class="center bottom 3-2 col-xs-4 inside-grid"></div>
               <div class="right bottom 3-3 col-xs-4 inside-grid"></div>
             </div>
           </div>
@@ -91,13 +92,13 @@
           <div class="col-xs-4 center middle main-grid" data-filled="false" id="main-center-2">
             <div class="col-xs-12 inside-container">
               <div class="left top 1-1 col-xs-4 inside-grid"></div>
-              <div class="center top 1-1 col-xs-4 inside-grid"></div>
-              <div class="right top 1-1 col-xs-4 inside-grid"></div>
-              <div class="left middle 2-2 col-xs-4 inside-grid"></div>
+              <div class="center top 1-2 col-xs-4 inside-grid"></div>
+              <div class="right top 1-3 col-xs-4 inside-grid"></div>
+              <div class="left middle 2-1 col-xs-4 inside-grid"></div>
               <div class="center middle 2-2 col-xs-4 inside-grid"></div>
-              <div class="right middle 2-2 col-xs-4 inside-grid"></div>
-              <div class="left bottom 3-3 col-xs-4 inside-grid"></div>
-              <div class="center bottom 3-3 col-xs-4 inside-grid"></div>
+              <div class="right middle 2-3 col-xs-4 inside-grid"></div>
+              <div class="left bottom 3-1 col-xs-4 inside-grid"></div>
+              <div class="center bottom 3-2 col-xs-4 inside-grid"></div>
               <div class="right bottom 3-3 col-xs-4 inside-grid"></div>
             </div>
           </div>
@@ -105,13 +106,13 @@
           <div class="col-xs-4 right middle main-grid" data-filled="false" id="main-right-2">
             <div class="col-xs-12 inside-container">
               <div class="left top 1-1 col-xs-4 inside-grid"></div>
-              <div class="center top 1-1 col-xs-4 inside-grid"></div>
-              <div class="right top 1-1 col-xs-4 inside-grid"></div>
-              <div class="left middle 2-2 col-xs-4 inside-grid"></div>
+              <div class="center top 1-2 col-xs-4 inside-grid"></div>
+              <div class="right top 1-3 col-xs-4 inside-grid"></div>
+              <div class="left middle 2-1 col-xs-4 inside-grid"></div>
               <div class="center middle 2-2 col-xs-4 inside-grid"></div>
-              <div class="right middle 2-2 col-xs-4 inside-grid"></div>
-              <div class="left bottom 3-3 col-xs-4 inside-grid"></div>
-              <div class="center bottom 3-3 col-xs-4 inside-grid"></div>
+              <div class="right middle 2-3 col-xs-4 inside-grid"></div>
+              <div class="left bottom 3-1 col-xs-4 inside-grid"></div>
+              <div class="center bottom 3-2 col-xs-4 inside-grid"></div>
               <div class="right bottom 3-3 col-xs-4 inside-grid"></div>
             </div>
           </div>
@@ -119,13 +120,13 @@
           <div class="col-xs-4 left bottom main-grid" data-filled="false" id="main-left-3">
             <div class="col-xs-12 inside-container">
               <div class="left top 1-1 col-xs-4 inside-grid"></div>
-              <div class="center top 1-1 col-xs-4 inside-grid"></div>
-              <div class="right top 1-1 col-xs-4 inside-grid"></div>
-              <div class="left middle 2-2 col-xs-4 inside-grid"></div>
+              <div class="center top 1-2 col-xs-4 inside-grid"></div>
+              <div class="right top 1-3 col-xs-4 inside-grid"></div>
+              <div class="left middle 2-1 col-xs-4 inside-grid"></div>
               <div class="center middle 2-2 col-xs-4 inside-grid"></div>
-              <div class="right middle 2-2 col-xs-4 inside-grid"></div>
-              <div class="left bottom 3-3 col-xs-4 inside-grid"></div>
-              <div class="center bottom 3-3 col-xs-4 inside-grid"></div>
+              <div class="right middle 2-3 col-xs-4 inside-grid"></div>
+              <div class="left bottom 3-1 col-xs-4 inside-grid"></div>
+              <div class="center bottom 3-2 col-xs-4 inside-grid"></div>
               <div class="right bottom 3-3 col-xs-4 inside-grid"></div>
             </div>
           </div>
@@ -133,13 +134,13 @@
           <div class="col-xs-4 center bottom main-grid" data-filled="false" id="main-center-3">
             <div class="col-xs-12 inside-container">
               <div class="left top 1-1 col-xs-4 inside-grid"></div>
-              <div class="center top 1-1 col-xs-4 inside-grid"></div>
-              <div class="right top 1-1 col-xs-4 inside-grid"></div>
-              <div class="left middle 2-2 col-xs-4 inside-grid"></div>
+              <div class="center top 1-2 col-xs-4 inside-grid"></div>
+              <div class="right top 1-3 col-xs-4 inside-grid"></div>
+              <div class="left middle 2-1 col-xs-4 inside-grid"></div>
               <div class="center middle 2-2 col-xs-4 inside-grid"></div>
-              <div class="right middle 2-2 col-xs-4 inside-grid"></div>
-              <div class="left bottom 3-3 col-xs-4 inside-grid"></div>
-              <div class="center bottom 3-3 col-xs-4 inside-grid"></div>
+              <div class="right middle 2-3 col-xs-4 inside-grid"></div>
+              <div class="left bottom 3-1 col-xs-4 inside-grid"></div>
+              <div class="center bottom 3-2 col-xs-4 inside-grid"></div>
               <div class="right bottom 3-3 col-xs-4 inside-grid"></div>
             </div>
           </div>
@@ -147,13 +148,13 @@
           <div class="col-xs-4 right bottom main-grid" data-filled="false" id="main-right-3">
             <div class="col-xs-12 inside-container">
               <div class="left top 1-1 col-xs-4 inside-grid"></div>
-              <div class="center top 1-1 col-xs-4 inside-grid"></div>
-              <div class="right top 1-1 col-xs-4 inside-grid"></div>
-              <div class="left middle 2-2 col-xs-4 inside-grid"></div>
+              <div class="center top 1-2 col-xs-4 inside-grid"></div>
+              <div class="right top 1-3 col-xs-4 inside-grid"></div>
+              <div class="left middle 2-1 col-xs-4 inside-grid"></div>
               <div class="center middle 2-2 col-xs-4 inside-grid"></div>
-              <div class="right middle 2-2 col-xs-4 inside-grid"></div>
-              <div class="left bottom 3-3 col-xs-4 inside-grid"></div>
-              <div class="center bottom 3-3 col-xs-4 inside-grid"></div>
+              <div class="right middle 2-3 col-xs-4 inside-grid"></div>
+              <div class="left bottom 3-1 col-xs-4 inside-grid"></div>
+              <div class="center bottom 3-2 col-xs-4 inside-grid"></div>
               <div class="right bottom 3-3 col-xs-4 inside-grid"></div>
             </div>
           </div>
