@@ -1,0 +1,11 @@
+{
+  "name": "MetaTicTacToe",
+  "version": "0.0.1",
+  "description": "Real time tic tac toe, meta style",
+  "dependencies": {
+      "socket.io": "latest",
+      "express": "latest",
+      "jade": "latest"
+  },
+  "author": "kingtak wong"
+}

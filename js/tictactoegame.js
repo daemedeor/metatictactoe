@@ -17,6 +17,7 @@ function TicTacToeGame(player1, player2, noOfTurns){
 	this.currentMarker = this.turn.marker;
 	this.board = [[0,0,0], [0,0,0], [0,0,0]];
 	this.won = false;
+	this.previousGameMove;
 	this.SetUpGame();
 };
 
@@ -155,19 +156,28 @@ TicTacToeGame.prototype.CheckAllBoardPieces = function(who){
 	}
 }
 
-TicTacToeGame.prototype.isLegalMove = function(clickedBlock){
-	var clickBlockElem = $(clickedBlock);
-	var clickBlockMain = $(clickedBlock).parent().parent(".main-grid").attr("class");
-	var anyText = clickBlockElem.html();
-	var classBlock = clickBlockElem.attr("class");
+TicTacToeGame.prototype.isLegalMove = function(this){
+	var $ClickedElem = $(this);
+	var $ClickBlockMain = $ClickedElem.parent().parent(".main-grid");
+	var ElemText = ClickedElem.html();
+	
 	var pattern = /(\d{1}-\d{1})/g;
 	var pattern1 = /(\d{1}-\d{1})/g;
-	var currentBoardNumber = pattern.exec(clickBlockMain)[0];
-	var innerBoardNumber = pattern1.exec(classBlock)[0];
 
-	if((anyText == "" || anyText == null || anyText == " ") && !this["GameBoard-"+currentBoardNumber].won && !this["GameBoard-"+currentBoardNumber].filled && !this.won ){
+	var CurrCoords = pattern.exec($ClickedElem.attr("class"))[0];
+	var NextCoords = pattern.exec($ClickBlockMain.attr("class"))[0];
+	console.log(CurrCoords);
+	console.log(NextCoords);
+	
+	if(ElemText && !this["GameBoard-"+currentBoardNumber].won && !this["GameBoard-"+currentBoardNumber].filled && !this.won ){
 		this.noOfTurns++;
+		
+		if(this.previousGameMove != currentBoardNumber ){
+			return false;
+		}
+
 		this.determineStateOfBlock(innerBoardNumber, this["GameBoard-"+currentBoardNumber]);
+		
 		if(!$(".main-grid."+innerBoardNumber).hasClass('x') && !$(".main-grid."+innerBoardNumber).hasClass('o') && !$(".main-grid."+innerBoardNumber).hasClass('tied') ){
 			
 			$(".main-grid").addClass('disabled');
@@ -189,9 +199,4 @@ TicTacToeGame.prototype.isLegalMove = function(clickedBlock){
 		return false;
 	}
 
-};
-
-TicTacToeGame.prototype.isRightBox
- = function(first_argument) {
-	// body...
 };
