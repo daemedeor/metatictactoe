@@ -1,0 +1,14 @@
+$fontSize: 13px;
+$fontColor: black;
+$breadcrumbColor: #999;
+$hoverColor: lighten($breadcrumbColor, 20%);
+$lighterColor: lighten($breadcrumbColor, 30%);
+$lighterFontColor: lighten($fontColor, 100%);
+$backgroundColor: white;
+$transitionType: all .5s;
+ 
+$barHeight: 22px;
+$arrowLength: 1em;
+$paddingSide: .8em;
+$paddingTop: 0px;
+$itemMargin: .01em;

@@ -156,19 +156,18 @@ TicTacToeGame.prototype.CheckAllBoardPieces = function(who){
 	}
 }
 
-TicTacToeGame.prototype.isLegalMove = function(this){
-	var $ClickedElem = $(this);
+TicTacToeGame.prototype.isLegalMove = function(CurrentClickedObject){
+	var $ClickedElem = $(CurrentClickedObject);
 	var $ClickBlockMain = $ClickedElem.parent().parent(".main-grid");
-	var ElemText = ClickedElem.html();
+	var ElemText = $ClickedElem.html();
 	
 	var pattern = /(\d{1}-\d{1})/g;
-	var pattern1 = /(\d{1}-\d{1})/g;
 
 	var CurrCoords = pattern.exec($ClickedElem.attr("class"))[0];
 	var NextCoords = pattern.exec($ClickBlockMain.attr("class"))[0];
 	console.log(CurrCoords);
 	console.log(NextCoords);
-	
+
 	if(ElemText && !this["GameBoard-"+currentBoardNumber].won && !this["GameBoard-"+currentBoardNumber].filled && !this.won ){
 		this.noOfTurns++;
 		
@@ -200,3 +199,8 @@ TicTacToeGame.prototype.isLegalMove = function(this){
 	}
 
 };
+
+
+function isLegalMove(CurrentClickedObject){
+
+}

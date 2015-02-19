@@ -20,8 +20,9 @@
 
 html{
   box-sizing: border-box;
-  font-size: 1.3em;
+  font-size: 1.5em;
 }
+
 *, *:before, *:after{
   box-sizing: border-box;
 }
@@ -43,13 +44,15 @@ a{
 /* Top stylings */
 #page-header{
   padding: 15px;
+  font-size: 2.4em;
 }
 
-nav{
-  font-size: 1.5em;
+nav{      
+  font-size: .91em;
   margin: 0px auto;
   line-height: 1.5em;
   letter-spacing: 0.08em;
+  margin-bottom: 15px;
   text-align: center;
 
   ul{
@@ -65,15 +68,127 @@ nav{
   }
 }
 
+ 
+
+
+// Styling
+/* Main styles */
+#minimenu {
+  display: inline-block;
+  overflow: hidden;
+  text-align: center;
+  font-size: $fontSize;
+
+  span{
+    text-decoration: none;
+    font-size: 13px;
+    color: $fontColor;
+    text-align: center;
+    font-weight: bold;
+    margin-right: $itemMargin;
+    outline: none;
+    display: inline-block;
+    float: left;
+    line-height: $barHeight + 2;
+    padding: $paddingTop $paddingSide;
+    padding-left: $arrowLength + $paddingSide;
+    position: relative;
+    @include vendor-prefix(transition, $transitionType);
+
+    &:after, &:before{
+      content: '';
+      position: absolute;
+      height: 0px;
+      width: 0px;
+      border-width: 13.5px 0 10.5px $arrowLength;
+      border-style: solid;
+      left: 100%;
+      top: 0px;
+      @include vendor-prefix(transition, $transitionType);
+    }
+
+    &:not(.last):before{
+      @include border-color(transparent);
+      left: 0;
+    }
+
+    &.last:before{
+      @include border-color($backgroundColor);
+      left: 0;
+    }
+
+    &:after{
+      @include border-color($lighterColor);
+      z-index: 1;
+    }
+
+    &.active{
+      background-color: $breadcrumbColor;
+      color: $lighterFontColor;
+      cursor: default;
+
+      &:after{
+        @include border-color($breadcrumbColor);
+      }
+    }
+
+    &:not(.active):hover{
+      background-color: $hoverColor;
+
+      &:after{
+      @include border-color($hoverColor);
+      }
+    }
+
+    &:first-of-type, &:nth-child(2), &.noLeftArrow{
+           @include vendor-prefix(border-radius, 0 0 0 0);
+
+           &:before{
+                 @include border-color(transparent);
+           }
+    }
+
+    &:last-of-type, &:first-of-type, &.noRightArrow{
+
+           &:after{
+                 @include border-color(transparent);
+
+           }
+    }
+
+    &.noArrows{
+      padding-right: $paddingSide + ($arrowLength/2);
+      padding-left: $paddingSide + ($arrowLength/2);
+
+      &:after{
+           @include border-color(transparent);
+
+      }
+
+      &:before{
+           @include border-color(transparent);
+
+      }
+    }
+    
+    &#collapsableMenu{
+      padding-left: 11px;
+    
+    }
+  }
+}
+
 span{
   padding: 15px;
   float: right;
   cursor: pointer;
 }
+
 body.row{
   margin: 0px;
   background-color: #3DA9E7;
 }
+
 /* Grid Stylings */
 #container{
   margin-right: auto;
@@ -99,7 +214,7 @@ body.row{
     box-shadow: 0px 0px 4px 1px rgba(0,0,0,0.75);
     padding: 0px 0px 0px 0px;
     cursor: default;
-    
+    margin-top: 30px;    
 
     .top, .middle, .bottom{
       border: 1px solid black;
@@ -243,7 +358,7 @@ body.row{
 
 @media (min-width: $screen-hg-min) {
   #container div.inside-grid{
-    height: 65px;
+    height: 60px;
     padding: 0px 0px 0px 30px;
     font-size: 2.6em;
   }

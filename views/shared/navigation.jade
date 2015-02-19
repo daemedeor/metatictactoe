@@ -1,0 +1,20 @@
+h1.text-center#page-header Meta Tic Tac Toe Game
+
+nav.row
+  ul
+    li
+      a(href="/about") About
+    li
+      a(href="/contact") Contact
+    li
+      a(href="https://github.com/kingtak/metatictactoe") Github
+    -if(user == null || req == null || req.login == false)
+      li
+        a(href="/login") Login
+      li
+        a(href="/register") Register
+    -else
+      li
+        a(href="/logout") Logout
+      li
+        a(href="/profile") Profile

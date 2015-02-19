@@ -1,0 +1,13 @@
+@mixin vendor-prefix($name, $argument...) {
+  -webkit-#{$name}: #{$argument};
+  @if($name != "transition"){
+       -ms-#{$name}: #{$argument};
+  }
+  -moz-#{$name}: #{$argument};
+  -o-#{$name}: #{$argument};
+  #{$name}: #{$argument};
+}
+
+@mixin border-color($color){
+  border-color: transparent transparent transparent $color;
+}
