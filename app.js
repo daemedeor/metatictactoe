@@ -24,7 +24,6 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 app.use(favicon());
 app.use(logger('dev'));
-app.use(require('node-compass')({mode: 'expanded'}));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(function(req, res, next){
     res.locals.session = req.session;

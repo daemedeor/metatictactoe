@@ -1,8 +1,12 @@
 var io;
 var gameSocket;
+var meta = {};
 
-exports.initGame = function(io, socket){
-	this.io = io;
+meta.initGame = function(err, session, socket, sessionIo){
+	io = sessionIo;
+	this.session = session;
+	this.socket = socket;
+	this.err = err;
 	gameSocket = socket;
 	gameSocket.emit('connected', {message: "You are Connected!"});
 
@@ -13,14 +17,13 @@ exports.initGame = function(io, socket){
 
 	gameSocket.on('playerJoin', playerJoin);
 	gameSocket.on('playerMove', playerMove);
-	//gameSocket.on('playerRestart', playerRestart);
+	//gameSocket.on('playerRestart', playerRestart(err, session, gameSocket, io));
 }
 
-function createNewGame(err, socket, session){
+function createNewGame(){
 	var thisGameId = (Math.random() * 100000) | 0;
 	var name, marker;
-	console.log("new");	
-	if(!session){
+	if(!meta.session){
 		currentMarker = "o"
 	}
 
@@ -48,8 +51,9 @@ function startGame(gameId, player1, player2, moves){
 
 function playerJoin(data){
 	var sock = this;
-
-	var room = gameSocket.manager.rooms['/'+data.gameId];
+	console.log(gameSocket.manager);
+	console.log(data);
+	var room = gameSocket.adapter.rooms[data.gameId];
 
 	if(room != undefined){
 		data.mySocketId = sock.id;
@@ -271,3 +275,5 @@ TicTacToeGame.prototype.isLegalMove = function(CurrentClickedObject){
 	}
 
 };
+
+module.exports = meta;

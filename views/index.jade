@@ -2,6 +2,7 @@ extends ./layout
 
 block content
 
+
   #board.col-xs-10.col-xs-offset-1.col-sm-8.col-sm-offset-2.col-md-10.col-md-offset-1.col-lg-6.col-lg-offset-3
       #main-left-1.col-xs-4.0-0.left.top.main-grid(data-coordinates="0-0")
         .displayState
@@ -111,8 +112,8 @@ block content
           .left.bottom.col-xs-4.2-0.inside-grid(data-coordinates="2-0")
           .center.bottom.col-xs-4.2-1.inside-grid(data-coordinates="2-1")
           .right.bottom.col-xs-4.2-2.inside-grid(data-coordinates="2-2")
-  
-  div.col-xs-7.col-xs-offset-2#moreInfo
+
+  div.col-xs-7.col-xs-offset-2.col-md-5.col-md-offset-3#moreInfo
     span.col-xs-6#markerDiv 
       span.col-xs-10 Current Turn:
       span.col-xs-2#currentMarker.text-center
@@ -120,3 +121,16 @@ block content
     span.col-xs-6#roomDiv 
       span.col-xs-10 Current Room: 
       span.col-xs-2#roomNumber.text-center
+
+  div#showModal.row.col-xs-6
+    span.exit
+    div#modalContent
+      h3 Please put the Room you want to join
+      .errorMessage.text-center
+      div.col-xs-12.form-group
+        label.col-xs-6(for="room") Room Number
+        input.col-xs-6(name="room",type="text")#roomNumberInput
+      div.col-xs-12.form-group
+        label.col-xs-6(for="name") Username (optional)
+        input.col-xs-6(name="name",type="text")#userNameInput
+      span#submitButton.button Connect to a room

@@ -16,7 +16,6 @@
     "static-favicon": "~1.0.2",
     "cookie-session": "~1.0.2",
     "express-session": "~1.6.5",
-    "node-compass": "~0.2.4",
     "session.socket.io-express4": "~0.1.1"
   },
   "author": "kingtak wong"

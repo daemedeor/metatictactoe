@@ -14,23 +14,22 @@ html
     script(src="./libs/socket.io.js")
     script(src="./js/tictactoegame.js")
 
-  body.row
+  body.row.col-xs-12
 
     include shared/navigation
 
     #content.row
-      #container.col-xs-12
-        
-        .displayState
-        #minimenu.col-xs-12.col-md-10.col-md-offset-2
-          span#reset Reset Game
-          .hide-on-sm
-            span#online Play Online
-            span#joinGame Join a Room
-            span#newGame Play Local
-    
-    
-        
+
+      //- .displayState
+
+      #minimenu.col-xs-12.col-md-10.col-md-offset-2
+        span#reset Reset Game
+        .hide-on-sm
+          span#newGame Play Online
+          span#joinGame Join a Room
+          span#localGame Play Local
+      
+      .col-xs-12.clearfix
         block content
   
     block pagespecificscripts

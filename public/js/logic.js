@@ -77,11 +77,15 @@
       App.$mainCell = $(".main-grid");
       App.$insideCell = $(".inside-grid");
       App.$displayGrid = $(".displayState");
+      App.$modal = $("#showModal");
       //App.$coordinates = App.$insideCell.data("coordinates");
     },
     
     bindEvents: function(){
       App.$doc.on('click', "#newGame", App.host.createRoom);
+      App.$doc.on('click', "#joinGame", App.player.joinRooom);
+      App.$modal.on('click', "#submitButton", App.player.connectToRoom);
+      
       // App.$doc.on('click', "#joinGame", App.player.joinGame);
       // App.$doc.on('click', "#resetGame", App.resetGame);
       // App.$doc.on('click', "#localGame", App.localGame);
@@ -151,6 +155,10 @@
     player: {
       name: "",
       marker: "",
+      
+      joinRooom: function(){
+        $("#showModal").addClass('display');
+      },
 
       joined: function(data){
         App.player.name = data.name;
@@ -158,6 +166,26 @@
         App.host.doneWaiting();
         App.$mainCell.removeClass('disabled');
 
+      },
+
+      connectToRoom: function(){
+        var roomNumber = $("#roomNumberInput").val();
+        var userName = $("#userNameInput").val();
+
+        if(!roomNumber){
+          $("#modalContent .errorMessage").html("Please input a room number");
+          $("#submitButton").addClass('button-error');
+          $("#submitButton").html('Retry connection');
+        }else{
+          
+          var data = {
+            gameId: roomNumber,
+            playerName: userName 
+          };
+
+          IO.socket.emit('playerJoin', data); 
+
+        }
       }
     },
 
@@ -167,15 +195,15 @@
   IO.init();
   App.init();
 
-  
-
   //get the current person details if logged in
   
   //or ask for the two players
-  
-  //var player1 = new Player("Justin", "o", 0, 0, 0), player2 = new Player("Brian", "x", 0, 0, 0);
-  //var game = new TicTacToeGame(player1, player2, 0);
-
+  $("#showModal").on('click', '.exit', function(event) {
+    event.preventDefault();
+    if($("#showModal").hasClass('display')){
+      $("#showModal").removeClass('display');
+    }
+  });
 
   $(".inside-grid").mouseenter(function(event) {
     $(".main-grid").removeClass('selected');
