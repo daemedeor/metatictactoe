@@ -3,20 +3,19 @@
 
 @import "./partials/bootstrap-variables";
 
+@import "./partials/variables";
+
+@import "./partials/vendor-prefixes";
+
 @import "./partials/type";
 
 @import "./partials/clearfix";
 
 @import "./partials/bootstrap-grid";
 
-@import "./partials/vendor-prefixes";
-
 @import "./partials/grid-system";
 
 @import "./partials/mixins";
-
-@import "./partials/variables";
-
 
 html{
   box-sizing: border-box;
@@ -136,24 +135,23 @@ nav{
       background-color: $hoverColor;
 
       &:after{
-      @include border-color($hoverColor);
+        @include border-color($hoverColor);
       }
     }
 
     &:first-of-type, &:nth-child(2), &.noLeftArrow{
-           @include vendor-prefix(border-radius, 0 0 0 0);
+       @include vendor-prefix(border-radius, 0 0 0 0);
 
-           &:before{
-                 @include border-color(transparent);
-           }
+       &:before{
+         @include border-color(transparent);
+       }
     }
 
     &:last-of-type, &:first-of-type, &.noRightArrow{
 
-           &:after{
-                 @include border-color(transparent);
-
-           }
+       &:after{
+         @include border-color(transparent);
+       }
     }
 
     &.noArrows{
@@ -161,27 +159,36 @@ nav{
       padding-left: $paddingSide + ($arrowLength/2);
 
       &:after{
-           @include border-color(transparent);
-
+         @include border-color(transparent);
       }
 
       &:before{
            @include border-color(transparent);
-
       }
+
     }
     
     &#collapsableMenu{
       padding-left: 11px;
-    
+      
+      span{
+        padding: 15px;
+        float: right;
+        cursor: pointer;
+      }
+
     }
   }
 }
 
-span{
-  padding: 15px;
-  float: right;
-  cursor: pointer;
+#moreInfo{
+  margin-top: 30px;
+  
+  #markerDiv, #roomDiv{
+    span{
+      font-size: .8em;
+    }
+  }
 }
 
 body.row{
@@ -200,7 +207,6 @@ body.row{
   .inside-container{
     padding: 10px;
     cursor: default;
-
   }
   
   .options{
@@ -240,7 +246,6 @@ body.row{
   }
   
   div.inside-grid{
-
     height: 0px;
     padding: 22px 0px 0px 0px;
     font-size: 2em;
@@ -248,16 +253,14 @@ body.row{
     &:hover{
       background-color: #FFA833;
       cursor: default;
-
     }
+
   }
   
   .main-grid{
     padding: 10px;
     cursor: default;
     
-   
-
     &.disabled{
       background-color: rgba(0,0,0,.75);
       
@@ -271,9 +274,9 @@ body.row{
         color: white;
         font-size: 3em;
         left: 45%;
-        top: 35%;
-      
+        top: 35%;  
       }
+
     }
 
     &.selected{
@@ -294,12 +297,12 @@ body.row{
         font-size: 3em;
         left: 45%;
         top: 35%;
-      
       }
 
     }
 
-    &.x{    
+    &.x{
+
       .displayState{
 
         &:before{
@@ -321,12 +324,10 @@ body.row{
     &.tied{
     
       .displayState{
-
         position: absolute;
         font-size: 3em;
         left: 45%;
         top: 35%;
-
       }
     }
   }
@@ -338,6 +339,7 @@ body.row{
 }
 
 @media (min-width: $screen-sm-min) {
+  
   #container div.inside-grid{
     height: 52px;
     padding: 0px 0px 0px 15px;
@@ -345,18 +347,21 @@ body.row{
 }
 
 @media (min-width: 1110px) {  
+  
   #container div.inside-grid{
     padding: 0px 0px 0px 33px;
   }
 }
 
 @media (min-width: $screen-lg-min) {  
+  
   #container div.inside-grid{
     padding: 0px 0px 0px 33px;
   }
 }
 
 @media (min-width: $screen-hg-min) {
+  
   #container div.inside-grid{
     height: 60px;
     padding: 0px 0px 0px 30px;

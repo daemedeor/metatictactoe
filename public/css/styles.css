@@ -346,8 +346,10 @@ nav a { display: inline-block; }
 #minimenu span.noArrows:after { border-color: transparent transparent transparent transparent; }
 #minimenu span.noArrows:before { border-color: transparent transparent transparent transparent; }
 #minimenu span#collapsableMenu { padding-left: 11px; }
+#minimenu span#collapsableMenu span { padding: 15px; float: right; cursor: pointer; }
 
-span { padding: 15px; float: right; cursor: pointer; }
+#moreInfo { margin-top: 30px; }
+#moreInfo #markerDiv span, #moreInfo #roomDiv span { font-size: .8em; }
 
 body.row { margin: 0px; background-color: #3DA9E7; }
 

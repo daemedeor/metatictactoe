@@ -11,7 +11,7 @@ html
       if(!window.jQuery){
         document.write('<script src="/libs/jquery-2.1.3.min.js"><\/script>');    
       }
-
+    script(src="./libs/socket.io.js")
     script(src="./js/tictactoegame.js")
 
   body.row
@@ -22,17 +22,17 @@ html
       #container.col-xs-12
         
         .displayState
-
         #minimenu.col-xs-12.col-md-10.col-md-offset-2
           span#reset Reset Game
           .hide-on-sm
             span#online Play Online
-            span#local Play Local
+            span#joinGame Join a Room
+            span#newGame Play Local
     
     
-
+        
         block content
-
+  
     block pagespecificscripts
 
     script(src="./js/logic.js")

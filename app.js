@@ -1,26 +1,45 @@
+//express app
 var express = require('express');
+var app = express();
+var metaTicToeGame = require('./metatictactoe');
+
+//database for the users
+var mongo = require('mongodb');
+var mongoose = require('mongoose');
+var cookieParser = require('cookie-parser');
+var session = require('express-session');
+//middle ware
 var bodyParser = require('body-parser');
 var path = require('path');
 var favicon = require('static-favicon');
 var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var app = express();
+
+app.use(cookieParser("secretPhrase"));
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
-var mongo = require('mongodb');
-var mongoose = require('mongoose');
-var routes = require('./routes/index');
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-
 app.use(favicon());
 app.use(logger('dev'));
-app.use(cookieParser());
 app.use(require('node-compass')({mode: 'expanded'}));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(function(req, res, next){
+    res.locals.session = req.session;
+    next();
+
+});
+
+//routes
+var routes = require('./routes/index');
+var login = require('./routes/login');
+var user = require('./routes/user');
 
 app.use('/', routes);
+app.use('/', user);
+app.use('/', login);
 
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -28,8 +47,6 @@ app.use(function(req, res, next) {
     err.status = 404;
     next(err);
 });
-
-/// error handlers
 
 // development error handler
 // will print stacktrace
@@ -53,5 +70,16 @@ app.use(function(err, req, res, next) {
     });
 });
 
+
+
+// io.use(function(socket, next) {
+//     var req = socket.handshake;
+//     var res = {};
+//     console.log("hhey");
+//     cookieParser(req, res, function(err) {
+//         if (err) return next(err);
+//         session(req, res, next);
+//     });
+// });
 
 module.exports = app;
