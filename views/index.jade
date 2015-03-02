@@ -1,8 +1,15 @@
 extends ./layout
 
 block content
+  
+  .alert Look there's a box here
 
-
+  #minimenu.col-xs-12.col-md-10.col-md-offset-2
+    span#reset Reset Game
+    span#newGame Play Online
+    span#joinGame Join a Room
+    span#localGame Play Local
+      
   #board.col-xs-10.col-xs-offset-1.col-sm-8.col-sm-offset-2.col-md-10.col-md-offset-1.col-lg-6.col-lg-offset-3
       #main-left-1.col-xs-4.0-0.left.top.main-grid(data-coordinates="0-0")
         .displayState
@@ -113,14 +120,14 @@ block content
           .center.bottom.col-xs-4.2-1.inside-grid(data-coordinates="2-1")
           .right.bottom.col-xs-4.2-2.inside-grid(data-coordinates="2-2")
 
-  div.col-xs-7.col-xs-offset-2.col-md-5.col-md-offset-3#moreInfo
-    span.col-xs-6#markerDiv 
-      span.col-xs-10 Current Turn:
-      span.col-xs-2#currentMarker.text-center
+  div.col-sm-6.col-sm-1.col-md-5.col-md-offset-3#moreInfo
+    span.col-sm-6.col-xs-12#markerDiv 
+      span.col-sm-10.col-xs-10 Current Turn:
+      span.col-sm-2.col-xs-2#currentMarker.text-center
 
-    span.col-xs-6#roomDiv 
-      span.col-xs-10 Current Room: 
-      span.col-xs-2#roomNumber.text-center
+    span.col-sm-6.col-xs-12#roomDiv 
+      span.col-sm-10.col-xs-10 Current Room: 
+      span.col-sm-2.col-xs-2#roomNumber.text-center
 
   div#showModal.row.col-xs-6
     span.exit

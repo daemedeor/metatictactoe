@@ -1,5 +1,6 @@
 var io;
 var gameSocket;
+var tictactoegame;
 var meta = {};
 
 meta.initGame = function(err, session, socket, sessionIo){
@@ -42,25 +43,33 @@ function fullRoom(gameId, player1, player2, moves){
 	io.sockets.in(data.gameId).emit('beginNewGame', data);	
 }
 
-function startGame(gameId, player1, player2, moves){
+function startGame(data){
 	console.log('gameStarted');
 
-	var tictactoegame = new TicTacToeGame(player1, player2, moves, gameId);
+	tictactoegame = new TicTacToeGame(player1, player2, moves, gameId);
 
 }
 
 function playerJoin(data){
 	var sock = this;
-	console.log(gameSocket.manager);
-	console.log(data);
+
 	var room = gameSocket.adapter.rooms[data.gameId];
+	if(!meta.session){
+		currentMarker = "x"
+	}
 
 	if(room != undefined){
-		data.mySocketId = sock.id;
+		
+		var data = {
+			mySocketId: sock.id,
+			gameId: data.gameId,
+			currentMarker: currentMarker,
+			playerName: data.name
+		};
 		sock.join(data.gameId);
-		io.sockets.in(data.gameId).emit('playerJoinedRoom', data);
+		io.sockets.in(data.gameId).emit('playerJoined', data);
 	}else{
-		this.emit('error', {message: "The game does not exist!"});
+		this.emit('joinError', {message: "The game does not exist!"});
 	}
 
 }

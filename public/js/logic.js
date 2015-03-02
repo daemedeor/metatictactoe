@@ -15,6 +15,7 @@
       IO.socket.on('checkMove', IO.checkMove);
       IO.socket.on('gameOver', IO.gameOver);
       IO.socket.on('error', IO.error);
+      IO.socket.on('joinError', IO.joinError);
     },
 
     onConnected: function(){
@@ -31,8 +32,8 @@
     /*
       data {{player: player, gameId: int, mySocketId: int}}
      */
-    playerJoined: function(data){
-      App.startGame(data);
+    playerJoinedRoom: function(data){
+      App[App.myRole].gameStarted(data);
     },
 
     beginNewGame: function(){
@@ -49,6 +50,12 @@
 
     error: function(data){
       alert(data.message);
+    },
+
+    joinError: function(data){
+      $("#modalContent .errorMessage").html(data.message);
+      $("#submitButton").addClass('button-error');
+      $("#submitButton").html('Retry connection');
     }
 
 
@@ -59,7 +66,8 @@
     gameId: 0,
     mySocketId: '',
     currentMarker: '',
-    
+    myRole: '',
+
     player: {
       name: "",
       marker: ""
@@ -99,6 +107,13 @@
     localGame: function(){
 
     },
+    
+    startGame: function(data){
+      console.log("startGame");
+      console.log(data);
+      IO.socket.emit('startGame', data.gameId); 
+
+    },
 
     move: function(e){
 
@@ -135,6 +150,7 @@
       
       createRoom: function(){
         console.log("Create room");
+        App.myRole = "host";
         IO.socket.emit('newGameCreated'); 
       },
 
@@ -145,10 +161,19 @@
         App.host.name = data.name;
         App.host.marker = data.marker;
         App.player = data.player;
-        console.log(data);
+        
         $("#currentMarker").html(data.currentMarker);
         $("#roomNumber").html(data.gameId);
       },
+
+      gameStarted: function(){
+        $(".alert").html("A player joined!");
+        $(".alert").addClass('open success');
+        setTimeout(function(){
+          $(".alert").addClass('close');
+          $(".alert").removeClass('open');
+        }, 5000);
+      }
 
     },
 
@@ -157,6 +182,7 @@
       marker: "",
       
       joinRooom: function(){
+        App.myRole = "player";
         $("#showModal").addClass('display');
       },
 
@@ -186,6 +212,21 @@
           IO.socket.emit('playerJoin', data); 
 
         }
+      },
+
+      gameStarted: function(data){
+        App.gameId = data.gameId;
+        App.mySocketId = data.mySocketId;
+        App.player.name = data.playerName;
+        App.player.marker = data.currentMarker;
+        App.myRole = "player";
+        $("#currentMarker").html(data.currentMarker);
+        $("#roomNumber").html(data.gameId);
+        $("#submitButton").addClass('button-success');
+        $("#submitButton").html('Success');
+        setTimeout(function(){
+          $("#showModal").removeClass('display');
+        }, 5000);
       }
     },
 
