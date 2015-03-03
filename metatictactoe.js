@@ -37,7 +37,7 @@ function createNewGame(){
 
 
 function startGame(data){
-  console.log("start game");
+  //console.log("start game");
   tictactoegame = new TicTacToeGame(data.gameId, data.currentMarker, data.hostMarker, data.playerMarker);
 }
 
@@ -67,17 +67,19 @@ function playerJoin(data){
 }
 
 function move(data){
-  console.log("starting moving");
+  //console.log("starting moving");
+    console.log(data);
+  
   var isLegal = tictactoegame.isLegalMove(data);
   var somethingWon = false;
   
-  console.log("legal state " + isLegal);
+  //console.log("legal state " + isLegal);
 
   if(isLegal){
-
-
     tictactoegame.numOfMoves++;
-    somethingWon = tictactoegame.determineStateOfBlock(data.currentMove, tictactoegame["GameBoard-" + data.currentMove], data);
+    console.log(tictactoegame["GameBoard-" + data.nextMove]);
+    somethingWon = tictactoegame.determineStateOfBlock(data.currentMove, tictactoegame["GameBoard-" + data.nextMove], data);
+    console.log(tictactoegame["GameBoard-" + data.nextMove]);
     
     if(somethingWon){
       somethingWon = tictactoegame.CheckAllBoardPieces(data.currentMarker, data);
@@ -143,14 +145,16 @@ TicTacToeGame.prototype.switchRole = function(data) {
     data.nextRole = "host";
     data.currentMarker = this.hostMarker;
     this.currentMarker = this.hostMarker;
-    
+
     data.previousMarker = this.playerMarker;
   }
 
   return data;
 };
+
 TicTacToeGame.prototype.SetUpGame = function() {
   
+  console.log("reset");
   this.board = [[0,0,0], [0,0,0], [0,0,0]];
   
   for(var i = 0; i < 3; i++){
@@ -180,7 +184,6 @@ TicTacToeGame.prototype.determineStateOfBlock = function(coordinates, whichBlock
   var x = coordinates.charAt(0);
   var y = coordinates.charAt(2);
   var data = {};
-
   whichBlock.numOfMoves++;
   whichBlock.board[x][y] = this.currentMarker;
 
@@ -196,20 +199,19 @@ TicTacToeGame.prototype.determineStateOfBlock = function(coordinates, whichBlock
       whichBlock.won = true;
       whichBlock.filled = true;
       this.board[whichBlock.x][whichBlock.y] = this.currentMarker;
-      
+      console.log("winnnnning");
       data.currentMarker = this.currentMarker;
       data.x = whichBlock.x;
       data.y = whichBlock.y;
-
-      io.sockets.in(data.gameId).emit("blockwon", data);
+      io.sockets.emit("blockwon", data);
       
       return true;
     }
   }
+
   if(whichBlock.numOfMoves == (this.boardSize * this.boardSize)){
     whichBlock.filled = true;
     this.board[whichBlock.x][whichBlock.y] = ".z;";
-      
     data.currentMarker = this.currentMarker;
     data.x = whichBlock.x;
     data.y = whichBlock.y;
@@ -263,12 +265,7 @@ TicTacToeGame.prototype.CheckAllBoardPieces = function(marker, data){
 }
 
 TicTacToeGame.prototype.isLegalMove = function(data){
-  console.log("data");
-  console.log(data);
-  console.log("previousgame");
-  console.log(this.previousGameMove);
-  console.log("current marker");
-  console.log(this.currentMarker);
+ 
 
   if((this.previousGameMove != "start" || this.previousGameMove != data.nextMove) && this.currentMarker != data.currentMarker){
     return false;

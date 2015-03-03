@@ -14,8 +14,25 @@
       IO.socket.on('beginNewGame', IO.beginNewGame);
       IO.socket.on('playerMoved', IO.moved);
       IO.socket.on('gameOver', IO.gameOver);
+      IO.socket.on('blockwon', IO.blockwon);
+      IO.socket.on('blocktied', IO.blocktied);
+      IO.socket.on('winner', IO.winner);
       IO.socket.on('error', IO.error);
       IO.socket.on('joinError', IO.joinError);
+    },
+
+    blockwon: function(data){
+      console.log("winning");
+      console.log(data);
+      $(".main-grid."+data.x+"-"+data.y).addClass(data.currentMarker);
+    },
+
+    blocktied: function(data){
+
+    },
+
+    winner: function(data){
+
     },
 
     onConnected: function(){
@@ -39,12 +56,7 @@
       App[App.myRole].gameStarted(data);
     },
 
-    beginNewGame: function(){
-
-    },
-
     moved: function(data){
-      console.log(data);
       App.currentMarker = data.currentMarker;
       $(".main-grid."+data.nextMove+" .inside-grid."+data.currentMove).html(data.previousMarker);
       $("#currentMarker").html(data.currentMarker);
@@ -106,7 +118,6 @@
     },
     
     startMovement: function(data){
-      console.log(data);
       App.$mainCell.addClass('disabled');
 
       $(".main-grid."+ data.currentMove).removeClass('disabled');
@@ -117,10 +128,10 @@
     },
 
     resetGame: function(){
-      $(".main-grid").removeClass('x');
-      $(".main-grid").removeClass('o');
-      $(".main-grid").removeClass('tied');
-      $(".main-grid").removeClass('disabled');
+      App.$mainCell.removeClass('x');
+      App.$mainCell.removeClass('o');
+      App.$mainCell.removeClass('tied');
+      App.$mainCell.removeClass('disabled');
       $(".inside-grid").html("");
     },
 
@@ -130,7 +141,6 @@
     
     startGame: function(data){
       console.log("startGame");
-      console.log(data);
       IO.socket.emit('startGame', data.gameId); 
 
     },
@@ -150,21 +160,17 @@
         
         data.currentMarker = App.currentMarker;
         var clickedElem = $(this);
-        var clickBlockMain = clickedElem.parent().parent(".main-grid");
         data.ElemText = clickedElem.html();
         data.currentMove = clickedElem.data('coordinates');
         data.nextMove = clickBlockMain.data('coordinates');
+        console.log(data.currentMove);
         IO.socket.emit('move', data); 
     
       }
       
       //IO.socket.emit('checkCurrentStatus', data.gameId); 
 
-    },
-
-    updateFrontState: function(){
-
-    },
+    }, 
 
     host:{
     
@@ -172,7 +178,6 @@
       marker: "",
       
       createRoom: function(){
-        console.log("Create room");
         App.myRole = "host";
         IO.socket.emit('newGameCreated'); 
       },
