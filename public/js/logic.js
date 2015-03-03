@@ -12,7 +12,7 @@
       IO.socket.on('newGameCreated', IO.onNewGameCreated);
       IO.socket.on('playerJoined', IO.playerJoinedRoom);
       IO.socket.on('beginNewGame', IO.beginNewGame);
-      IO.socket.on('checkMove', IO.checkMove);
+      IO.socket.on('playerMoved', IO.moved);
       IO.socket.on('gameOver', IO.gameOver);
       IO.socket.on('error', IO.error);
       IO.socket.on('joinError', IO.joinError);
@@ -33,6 +33,9 @@
       data {{player: player, gameId: int, mySocketId: int}}
      */
     playerJoinedRoom: function(data){
+
+      $("#currentMarker").html(data.initialStart);
+      App.player.joined(data);
       App[App.myRole].gameStarted(data);
     },
 
@@ -40,8 +43,16 @@
 
     },
 
-    checkMove: function(currentMove){
-      
+    moved: function(data){
+      console.log(data);
+      App.currentMarker = data.currentMarker;
+      $(".main-grid."+data.nextMove+" .inside-grid."+data.currentMove).html(data.previousMarker);
+      $("#currentMarker").html(data.currentMarker);
+      if(App.myRole != data.nextRole){
+       App.stopMovement();
+      }else{
+       App.startMovement(data);
+      }
     },
 
     gameOver: function(){
@@ -68,11 +79,6 @@
     currentMarker: '',
     myRole: '',
 
-    player: {
-      name: "",
-      marker: ""
-    },
-
     init: function(){
       App.cacheElements();
       App.bindEvents();
@@ -93,15 +99,29 @@
       App.$doc.on('click', "#newGame", App.host.createRoom);
       App.$doc.on('click', "#joinGame", App.player.joinRooom);
       App.$modal.on('click', "#submitButton", App.player.connectToRoom);
+      App.$insideCell.on('click', App.move);
       
-      // App.$doc.on('click', "#joinGame", App.player.joinGame);
       // App.$doc.on('click', "#resetGame", App.resetGame);
       // App.$doc.on('click', "#localGame", App.localGame);
-      // App.$insideCell.click(App.move(event));
+    },
+    
+    startMovement: function(data){
+      console.log(data);
+      App.$mainCell.addClass('disabled');
+
+      $(".main-grid."+ data.currentMove).removeClass('disabled');
+    },
+
+    stopMovement: function(data){
+      App.$mainCell.addClass('disabled');
     },
 
     resetGame: function(){
-
+      $(".main-grid").removeClass('x');
+      $(".main-grid").removeClass('o');
+      $(".main-grid").removeClass('tied');
+      $(".main-grid").removeClass('disabled');
+      $(".inside-grid").html("");
     },
 
     localGame: function(){
@@ -117,6 +137,8 @@
 
     move: function(e){
 
+      e.preventDefault();
+      var data = {gameId: App.gameId, mySocketId: App.mySocketId, currentMarker: App.currentMarker};
 
       //get the main body
       var clickBlockMain = $(this).parent().parent(".main-grid");
@@ -125,22 +147,23 @@
       if(!clickBlockMain.hasClass('disabled') && !clickBlockMain.hasClass('x') && !clickBlockMain.hasClass('o') && !clickBlockMain.hasClass('tied')){
         
         //get the important Information
-        currentMarker = App.currentMarker;
-        currentPlayer = App.player;
         
-        /*abstract to the backend
-        if(game.isLegalMove(this)){
-          
-          $(this).html(currentMarker);
-        
-          game.switchTurns(nextPlayer);
-
-        }
-        */
+        data.currentMarker = App.currentMarker;
+        var clickedElem = $(this);
+        var clickBlockMain = clickedElem.parent().parent(".main-grid");
+        data.ElemText = clickedElem.html();
+        data.currentMove = clickedElem.data('coordinates');
+        data.nextMove = clickBlockMain.data('coordinates');
+        IO.socket.emit('move', data); 
     
       }
-      // game.CheckAllBoardPieces(game.player1);
-      // game.CheckAllBoardPieces(game.player2);
+      
+      //IO.socket.emit('checkCurrentStatus', data.gameId); 
+
+    },
+
+    updateFrontState: function(){
+
     },
 
     host:{
@@ -160,21 +183,29 @@
         App.currentMarker = data.marker;
         App.host.name = data.name;
         App.host.marker = data.marker;
-        App.player = data.player;
-        
-        $("#currentMarker").html(data.currentMarker);
+        App.currentMarker = data.marker;
+
+        $("#currentMarker").html(data.marker);
         $("#roomNumber").html(data.gameId);
       },
 
       gameStarted: function(){
+        var data = {}
+        data.gameId = App.gameId;
+        data.currentMarker = App.host.marker;
+        data.hostMarker = App.host.marker;
+        data.playerMarker = App.player.marker;
+        IO.socket.emit('startGame', data);
         $(".alert").html("A player joined!");
         $(".alert").addClass('open success');
         setTimeout(function(){
           $(".alert").addClass('close');
           $(".alert").removeClass('open');
         }, 5000);
-      }
+        App.$mainCell.removeClass('disabled');
+      },
 
+ 
     },
 
     player: {
@@ -182,15 +213,24 @@
       marker: "",
       
       joinRooom: function(){
-        App.myRole = "player";
-        $("#showModal").addClass('display');
+        if(App.myRole == "host"){
+          var argue = confirm("Are you sure?");
+          if(argue){
+            App.myRole = "player";
+            $("#showModal").addClass('display');
+          }
+        }else{
+          App.myRole = "player";
+          $("#showModal").addClass('display');          
+        }
+
       },
 
       joined: function(data){
         App.player.name = data.name;
         App.player.marker = data.marker;
-        App.host.doneWaiting();
-        App.$mainCell.removeClass('disabled');
+        App.mySocketId = data.mySocketId;
+        App.gameId = data.gameId;
 
       },
 
@@ -220,14 +260,14 @@
         App.player.name = data.playerName;
         App.player.marker = data.currentMarker;
         App.myRole = "player";
-        $("#currentMarker").html(data.currentMarker);
         $("#roomNumber").html(data.gameId);
         $("#submitButton").addClass('button-success');
         $("#submitButton").html('Success');
         setTimeout(function(){
           $("#showModal").removeClass('display');
         }, 5000);
-      }
+      },
+
     },
 
 

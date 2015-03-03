@@ -368,7 +368,7 @@ body.row{
     height: 0px;
     padding: 17px 0px 0px 0px;
     font-size: 2em;
-
+    
     &:hover{
       background-color: #FFA833;
       cursor: default;
@@ -522,11 +522,16 @@ body.row{
   }
 }
 
+#contentBlock{
+  margin-top: 30px;
+}
+
 @media (min-width: 500px) {
   
   #content div.inside-grid{
     height: 52px;
-    padding: 42px 0px 0px 0px;
+    padding: 0px 0px 0px 12px;
+    font-size: 1.3em;
   }
   
 }
@@ -536,7 +541,8 @@ body.row{
   
   #content div.inside-grid{
     height: 52px;
-    padding: 42px 0px 0px 0px;
+    padding: 0px 0px 0px 11px;
+    font-size: 1.5em;
   }
   
 }
@@ -553,7 +559,8 @@ body.row{
 @media (min-width: $screen-lg-min) {  
   
   #content div.inside-grid{
-    padding: 0px 0px 0px 33px;
+    padding: 0px 0px 0px 19px;
+    font-size: 1.5em;
   }
 
 }
