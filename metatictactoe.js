@@ -67,8 +67,7 @@ function playerJoin(data){
 }
 
 function move(data){
-  //console.log("starting moving");
-    console.log(data);
+
   
   var isLegal = tictactoegame.isLegalMove(data);
   var somethingWon = false;
@@ -77,15 +76,18 @@ function move(data){
 
   if(isLegal){
     tictactoegame.numOfMoves++;
-    console.log(tictactoegame["GameBoard-" + data.nextMove]);
+
     somethingWon = tictactoegame.determineStateOfBlock(data.currentMove, tictactoegame["GameBoard-" + data.nextMove], data);
-    console.log(tictactoegame["GameBoard-" + data.nextMove]);
     
     if(somethingWon){
       somethingWon = tictactoegame.CheckAllBoardPieces(data.currentMarker, data);
     }
-  
     data = tictactoegame.switchRole(data);
+    
+    if(tictactoegame["GameBoard-" + data.currentMove].won || tictactoegame["GameBoard-" + data.currentMove].filled){
+      data.openGrid = true;
+    }
+    
     io.sockets.in(data.gameId).emit('playerMoved', data);
 
   }else{
@@ -154,7 +156,7 @@ TicTacToeGame.prototype.switchRole = function(data) {
 
 TicTacToeGame.prototype.SetUpGame = function() {
   
-  console.log("reset");
+  
   this.board = [[0,0,0], [0,0,0], [0,0,0]];
   
   for(var i = 0; i < 3; i++){
@@ -199,11 +201,10 @@ TicTacToeGame.prototype.determineStateOfBlock = function(coordinates, whichBlock
       whichBlock.won = true;
       whichBlock.filled = true;
       this.board[whichBlock.x][whichBlock.y] = this.currentMarker;
-      console.log("winnnnning");
       data.currentMarker = this.currentMarker;
       data.x = whichBlock.x;
       data.y = whichBlock.y;
-      io.sockets.emit("blockwon", data);
+      io.sockets.emit("blockStateChanged", data);
       
       return true;
     }
@@ -212,11 +213,11 @@ TicTacToeGame.prototype.determineStateOfBlock = function(coordinates, whichBlock
   if(whichBlock.numOfMoves == (this.boardSize * this.boardSize)){
     whichBlock.filled = true;
     this.board[whichBlock.x][whichBlock.y] = ".z;";
-    data.currentMarker = this.currentMarker;
+    data.currentMarker = "tied";
     data.x = whichBlock.x;
     data.y = whichBlock.y;
 
-    io.sockets.in(data.gameId).emit("blocktied", data);
+    io.sockets.emit("blockStateChanged", data);
     return true;
   }
 
@@ -257,7 +258,7 @@ TicTacToeGame.prototype.CheckAllBoardPieces = function(marker, data){
     
     data.message = "Game Tied";
 
-    io.sockets.in(data.gameId).emit("blocktied", data);
+    io.sockets.in(data.gameId).emit("gameOver", data);
     return true;
   }
 
@@ -272,8 +273,8 @@ TicTacToeGame.prototype.isLegalMove = function(data){
   }else{
     this.previousGameMove = data.currentMove;
   }
-
-  if(!data.ElemText && !this["GameBoard-" + data.currentMove].won && !this["GameBoard-" + data.currentMove].filled && !this.won ){
+  
+  if(!data.ElemText && !this["GameBoard-" + data.nextMove].won && !this["GameBoard-" + data.nextMove].filled && !this.won ){
     return true;
   }else{
     return false;

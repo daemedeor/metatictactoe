@@ -14,17 +14,16 @@
       IO.socket.on('beginNewGame', IO.beginNewGame);
       IO.socket.on('playerMoved', IO.moved);
       IO.socket.on('gameOver', IO.gameOver);
-      IO.socket.on('blockwon', IO.blockwon);
-      IO.socket.on('blocktied', IO.blocktied);
+      IO.socket.on('blockStateChanged', IO.blockStateChanged);
       IO.socket.on('winner', IO.winner);
       IO.socket.on('error', IO.error);
       IO.socket.on('joinError', IO.joinError);
     },
 
-    blockwon: function(data){
+    blockStateChanged: function(data){
       console.log("winning");
       console.log(data);
-      $(".main-grid."+data.x+"-"+data.y).addClass(data.currentMarker);
+      $(".main-grid."+data.x+"-"+data.y).addClass(data.currentMarker + " fini");
     },
 
     blocktied: function(data){
@@ -119,8 +118,12 @@
     
     startMovement: function(data){
       App.$mainCell.addClass('disabled');
-
-      $(".main-grid."+ data.currentMove).removeClass('disabled');
+      if(!data.openGrid){
+        $(".main-grid."+ data.currentMove).removeClass('disabled');
+      }else{
+        $(".main-grid").removeClass('disabled');
+      }
+    
     },
 
     stopMovement: function(data){
@@ -292,11 +295,12 @@
   });
 
   $(".inside-grid").mouseenter(function(event) {
+    
     $(".main-grid").removeClass('selected');
     event.preventDefault();
     var currElem = $(this).parent().parent(".main-grid");
     var currClass = $(this).attr("class");
-    if(!currElem.hasClass('disabled')){
+    if(!currElem.hasClass('disabled') && !currElem.hasClass('fini')){
       var innerBoardNumber = $(this).data('coordinates');
       $(".main-grid."+innerBoardNumber).addClass('selected'); 
     }
