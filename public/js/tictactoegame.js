@@ -32,7 +32,7 @@ function SmallerGameBoard(){
 };
 
 TicTacToeGame.prototype.SetUpGame = function() {
-	
+	$(".main-grid").removeClass('disabled');
 	for(var i = 0; i < 3; i++){
 		for(var q = 0; q < 3; q++){
 			newSmallGameBoard = new SmallerGameBoard();
@@ -161,26 +161,18 @@ TicTacToeGame.prototype.isLegalMove = function(CurrentClickedObject){
 	var $ClickBlockMain = $ClickedElem.parent().parent(".main-grid");
 	var ElemText = $ClickedElem.html();
 	
-	var pattern = /(\d{1}-\d{1})/g;
+	var CurrCoords = $ClickedElem.data('coordinates');
+	var NextCoords = $ClickBlockMain.data('coordinates');
 
-	var CurrCoords = pattern.exec($ClickedElem.attr("class"))[0];
-	var NextCoords = pattern.exec($ClickBlockMain.attr("class"))[0];
-	console.log(CurrCoords);
-	console.log(NextCoords);
-
-	if(ElemText && !this["GameBoard-"+currentBoardNumber].won && !this["GameBoard-"+currentBoardNumber].filled && !this.won ){
+	if(!ElemText && !this["GameBoard-"+NextCoords].won && !this["GameBoard-"+NextCoords].filled && !this.won ){
 		this.noOfTurns++;
-		
-		if(this.previousGameMove != currentBoardNumber ){
-			return false;
-		}
 
-		this.determineStateOfBlock(innerBoardNumber, this["GameBoard-"+currentBoardNumber]);
+		this.determineStateOfBlock(CurrCoords, this["GameBoard-"+NextCoords]);
 		
-		if(!$(".main-grid."+innerBoardNumber).hasClass('x') && !$(".main-grid."+innerBoardNumber).hasClass('o') && !$(".main-grid."+innerBoardNumber).hasClass('tied') ){
+		if(!$(".main-grid."+CurrCoords).hasClass('x') && !$(".main-grid."+CurrCoords).hasClass('o') && !$(".main-grid."+CurrCoords).hasClass('tied') ){
 			
 			$(".main-grid").addClass('disabled');
-			$(".main-grid."+innerBoardNumber).removeClass('disabled');
+			$(".main-grid."+CurrCoords).removeClass('disabled');
 			$(".main-grid.x").removeClass('disabled');
 			$(".main-grid.o").removeClass('disabled');
 			$(".main-grid.tied").removeClass('disabled');
@@ -199,8 +191,3 @@ TicTacToeGame.prototype.isLegalMove = function(CurrentClickedObject){
 	}
 
 };
-
-
-function isLegalMove(CurrentClickedObject){
-
-}

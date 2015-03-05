@@ -268,7 +268,7 @@ TicTacToeGame.prototype.CheckAllBoardPieces = function(marker, data){
 TicTacToeGame.prototype.isLegalMove = function(data){
  
 
-  if((this.previousGameMove != "start" || this.previousGameMove != data.nextMove) && this.currentMarker != data.currentMarker){
+  if((this.previousGameMove != "start" || this.previousGameMove != data.nextMove || this["GameBoard-" + data.nextMove].filled) && this.currentMarker != data.currentMarker){
     return false;
   }else{
     this.previousGameMove = data.currentMove;

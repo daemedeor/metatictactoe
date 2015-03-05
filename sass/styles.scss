@@ -138,7 +138,6 @@ nav{
 
  
 .alert {
-
   padding: 8px 35px 8px 14px;
   margin-bottom: 18px;
   color: #c09853;
@@ -186,7 +185,6 @@ nav{
 
 .alert-heading {
   color: inherit;
-
 }
 
 // Styling
@@ -205,11 +203,11 @@ nav{
     font-weight: bold;
     margin-right: $itemMargin;
     outline: none;
+    margin: 0px 2px 0px 2px;
     display: inline-block;
-    float: left;
+    float: right;
     line-height: $barHeight + 2;
     padding: $paddingTop $paddingSide;
-    padding-left: $arrowLength + $paddingSide;
     position: relative;
     @include vendor-prefix(transition, $transitionType);
 
@@ -218,8 +216,6 @@ nav{
       position: absolute;
       height: 0px;
       width: 0px;
-      border-width: 13.5px 0 10.5px $arrowLength;
-      border-style: solid;
       left: 100%;
       top: 0px;
       @include vendor-prefix(transition, $transitionType);
@@ -301,7 +297,7 @@ nav{
 }
 
 #moreInfo{
-  margin-top: 30px;
+  margin-top: 20px;
 
   #markerDiv, #roomDiv{
     span{
@@ -314,7 +310,6 @@ body.row{
   margin: 0px;
   background-color: #3DA9E7;
   height: 100%;
-
 }
 
 /* Grid Stylings */
@@ -340,6 +335,22 @@ body.row{
     padding: 0px 0px 0px 0px;
     cursor: default;
     margin-top: 30px;    
+    
+    span.displayState{
+      position: absolute;
+      opacity: 0;
+      display: none;
+      width: 100%;
+      height: 100%;
+      
+      &.show{
+        opacity: 1;
+        transition: all 1s;
+        display: block;
+        background-color: black;
+        z-index: 9999;
+      }
+    }
 
     .top, .middle, .bottom{
       border: 1px solid black;
@@ -365,15 +376,14 @@ body.row{
   }
   
   div.inside-grid{
-    height: 0px;
-    padding: 17px 0px 0px 0px;
+    height: 40px;
+    padding: 20px 0px 0px 0px;
     font-size: 2em;
     
     &:hover{
       background-color: #FFA833;
       cursor: default;
     }
-
   }
   
   .main-grid{
@@ -395,7 +405,6 @@ body.row{
         left: 45%;
         top: 35%;  
       }
-
     }
 
     &.selected{
@@ -509,6 +518,10 @@ body.row{
   > span{
     margin-top: 15px;
   }
+
+  span{
+    padding: 0px;
+  }
 }
 
 .exit{
@@ -529,18 +542,27 @@ body.row{
 @media (min-width: 500px) {
   
   #content div.inside-grid{
-    height: 52px;
+    height: 40px;
     padding: 0px 0px 0px 12px;
     font-size: 1.3em;
   }
   
 }
 
+@media (min-width: 570px) {
+  
+  #content div.inside-grid{
+    height: 51px;
+    padding: 0px 0px 0px 12px;
+    font-size: 1.3em;
+  }
+
+}
 
 @media (min-width: $screen-sm-min) {
   
   #content div.inside-grid{
-    height: 52px;
+    height: 58px;
     padding: 0px 0px 0px 11px;
     font-size: 1.5em;
   }
@@ -552,12 +574,17 @@ body.row{
 @media (min-width: 1110px) {  
   
   #content div.inside-grid{
+    height: 58px;
     padding: 0px 0px 0px 42px;
   }
 }
 
 @media (min-width: $screen-lg-min) {  
   
+  #moreInfo{
+    margin-top: 15px;
+  }
+
   #content div.inside-grid{
     padding: 0px 0px 0px 19px;
     font-size: 1.5em;

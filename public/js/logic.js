@@ -20,18 +20,16 @@
       IO.socket.on('joinError', IO.joinError);
     },
 
+    bindEmptyEvents: function(){
+      IO.socket = {};
+    },
+
     blockStateChanged: function(data){
-      console.log("winning");
-      console.log(data);
       $(".main-grid."+data.x+"-"+data.y).addClass(data.currentMarker + " fini");
     },
 
-    blocktied: function(data){
-
-    },
-
     winner: function(data){
-
+      $("#board span.displayState").addClass('show');
     },
 
     onConnected: function(){
@@ -49,7 +47,6 @@
       data {{player: player, gameId: int, mySocketId: int}}
      */
     playerJoinedRoom: function(data){
-
       $("#currentMarker").html(data.initialStart);
       App.player.joined(data);
       App[App.myRole].gameStarted(data);
@@ -64,10 +61,6 @@
       }else{
        App.startMovement(data);
       }
-    },
-
-    gameOver: function(){
-
     },
 
     error: function(data){
@@ -110,10 +103,10 @@
       App.$doc.on('click', "#newGame", App.host.createRoom);
       App.$doc.on('click', "#joinGame", App.player.joinRooom);
       App.$modal.on('click', "#submitButton", App.player.connectToRoom);
-      App.$insideCell.on('click', App.move);
+      App.$doc.on('click',".inside-grid", App.move);
       
-      // App.$doc.on('click', "#resetGame", App.resetGame);
-      // App.$doc.on('click', "#localGame", App.localGame);
+      App.$doc.on('click', "#reset", App.resetGame);
+      App.$doc.on('click', "#localGame", App.localGame);
     },
     
     startMovement: function(data){
@@ -134,12 +127,48 @@
       App.$mainCell.removeClass('x');
       App.$mainCell.removeClass('o');
       App.$mainCell.removeClass('tied');
-      App.$mainCell.removeClass('disabled');
+      App.$mainCell.addClass('disabled');
       $(".inside-grid").html("");
+      $("#board span.displayState").removeClass('show');
+      $(document).off('click', ".inside-grid");
+      $(document).on('click', ".inside-grid", App.move);
+
     },
 
     localGame: function(){
+      IO.bindEmptyEvents();
+      var player1 = new Player("", "o", 0, 0, 0);
+      var player2 = new Player("", "x", 0, 0, 0);
+      var game = new TicTacToeGame(player1, player2, 0);
+      var currentMarker;
+      $(document).off('click', ".inside-grid");
 
+      $(document).on("click", ".inside-grid", function(e){
+        e.preventDefault();
+        var clickBlockMain = $(this).parent().parent(".main-grid");
+        if(!clickBlockMain.hasClass('disabled') && !clickBlockMain.hasClass('x') && !clickBlockMain.hasClass('o') && !clickBlockMain.hasClass('tied') && !game.won){
+          currentMarker = game.currentMarker;
+          currentPlayer = game.turn;
+          
+          if(currentPlayer == game.player1){
+            nextPlayer = game.player2;
+          }else{
+            nextPlayer = game.player1;
+          }
+          
+              
+          if(game.isLegalMove(this)){
+            
+            $(this).html(currentMarker);
+          
+            game.switchTurns(nextPlayer);
+
+          }
+      
+        }
+        game.CheckAllBoardPieces(game.player1);
+        game.CheckAllBoardPieces(game.player2);
+      });
     },
     
     startGame: function(data){
@@ -166,13 +195,11 @@
         data.ElemText = clickedElem.html();
         data.currentMove = clickedElem.data('coordinates');
         data.nextMove = clickBlockMain.data('coordinates');
-        console.log(data.currentMove);
+
         IO.socket.emit('move', data); 
     
       }
       
-      //IO.socket.emit('checkCurrentStatus', data.gameId); 
-
     }, 
 
     host:{
@@ -182,6 +209,8 @@
       
       createRoom: function(){
         App.myRole = "host";
+        IO.init();
+        App.resetGame();
         IO.socket.emit('newGameCreated'); 
       },
 
@@ -209,7 +238,7 @@
         setTimeout(function(){
           $(".alert").addClass('close');
           $(".alert").removeClass('open');
-        }, 5000);
+        }, 3000);
         App.$mainCell.removeClass('disabled');
       },
 
@@ -221,6 +250,9 @@
       marker: "",
       
       joinRooom: function(){
+        IO.init();
+        App.resetGame();
+
         if(App.myRole == "host"){
           var argue = confirm("Are you sure?");
           if(argue){
@@ -228,6 +260,7 @@
             $("#showModal").addClass('display');
           }
         }else{
+          App.$mainCell.addClass('disabled');
           App.myRole = "player";
           $("#showModal").addClass('display');          
         }
@@ -273,7 +306,7 @@
         $("#submitButton").html('Success');
         setTimeout(function(){
           $("#showModal").removeClass('display');
-        }, 5000);
+        }, 3000);
       },
 
     },
@@ -281,8 +314,8 @@
 
   }
 
-  IO.init();
   App.init();
+  IO.init();
 
   //get the current person details if logged in
   

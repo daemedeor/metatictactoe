@@ -354,8 +354,8 @@ nav a { display: inline-block; }
 
 /* Main styles */
 #minimenu { display: inline-block; overflow: hidden; text-align: center; font-size: 13px; }
-#minimenu span { text-decoration: none; font-size: 13px; color: black; text-align: center; font-weight: bold; margin-right: 0.01em; outline: none; display: inline-block; float: left; line-height: 24px; padding: 0px 0.8em; padding-left: 1.8em; position: relative; -webkit-transition: all 0.5s; -moz-transition: all 0.5s; -o-transition: all 0.5s; transition: all 0.5s; }
-#minimenu span:after, #minimenu span:before { content: ''; position: absolute; height: 0px; width: 0px; border-width: 13.5px 0 10.5px 1em; border-style: solid; left: 100%; top: 0px; -webkit-transition: all 0.5s; -moz-transition: all 0.5s; -o-transition: all 0.5s; transition: all 0.5s; }
+#minimenu span { text-decoration: none; font-size: 13px; color: black; text-align: center; font-weight: bold; margin-right: 0.01em; outline: none; margin: 0px 2px 0px 2px; display: inline-block; float: right; line-height: 24px; padding: 0px 0.8em; position: relative; -webkit-transition: all 0.5s; -moz-transition: all 0.5s; -o-transition: all 0.5s; transition: all 0.5s; }
+#minimenu span:after, #minimenu span:before { content: ''; position: absolute; height: 0px; width: 0px; left: 100%; top: 0px; -webkit-transition: all 0.5s; -moz-transition: all 0.5s; -o-transition: all 0.5s; transition: all 0.5s; }
 #minimenu span:not(.last):before { border-color: transparent transparent transparent transparent; left: 0; }
 #minimenu span.last:before { border-color: transparent transparent transparent white; left: 0; }
 #minimenu span:after { border-color: transparent transparent transparent #e6e6e6; z-index: 1; }
@@ -372,7 +372,7 @@ nav a { display: inline-block; }
 #minimenu span#collapsableMenu { padding-left: 11px; }
 #minimenu span#collapsableMenu span { padding: 15px; float: right; cursor: pointer; }
 
-#moreInfo { margin-top: 30px; }
+#moreInfo { margin-top: 20px; }
 #moreInfo #markerDiv span, #moreInfo #roomDiv span { font-size: .8em; }
 
 body.row { margin: 0px; background-color: #3DA9E7; height: 100%; }
@@ -382,12 +382,14 @@ body.row { margin: 0px; background-color: #3DA9E7; height: 100%; }
 #content .inside-container { padding: 10px; cursor: default; }
 #content .options { margin: 15px; }
 #content #board { background-color: rgba(249, 249, 249, 0.88); -webkit-box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.75); -moz-box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.75); box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.75); padding: 0px 0px 0px 0px; cursor: default; margin-top: 30px; }
+#content #board span.displayState { position: absolute; opacity: 0; display: none; width: 100%; height: 100%; }
+#content #board span.displayState.show { opacity: 1; transition: all 1s; display: block; background-color: black; z-index: 9999; }
 #content #board .top, #content #board .middle, #content #board .bottom { border: 1px solid black; }
 #content #board .top.left, #content #board .middle.left, #content #board .bottom.left { border-left: none; }
 #content #board .top.right, #content #board .middle.right, #content #board .bottom.right { border-right: none; }
 #content #board .top { border-top: none; }
 #content #board .bottom { border-bottom: none; }
-#content div.inside-grid { height: 0px; padding: 17px 0px 0px 0px; font-size: 2em; }
+#content div.inside-grid { height: 40px; padding: 20px 0px 0px 0px; font-size: 2em; }
 #content div.inside-grid:hover { background-color: #FFA833; cursor: default; }
 #content .main-grid { padding: 10px; cursor: default; }
 #content .main-grid.disabled { background-color: rgba(0, 0, 0, 0.75); }
@@ -413,14 +415,17 @@ body.row { margin: 0px; background-color: #3DA9E7; height: 100%; }
 #showModal.display #submitButton { position: absolute; right: 0px; bottom: 0px; font-size: .7em; }
 
 #moreInfo > span { margin-top: 15px; }
+#moreInfo span { padding: 0px; }
 
 .exit { position: absolute; font-size: .6em; top: 5px; right: 15px; }
 .exit:after { content: 'x'; }
 
 #contentBlock { margin-top: 30px; }
 
-@media (min-width: 500px) { #content div.inside-grid { height: 52px; padding: 0px 0px 0px 12px; font-size: 1.3em; } }
-@media (min-width: 768px) { #content div.inside-grid { height: 52px; padding: 0px 0px 0px 11px; font-size: 1.5em; } }
-@media (min-width: 1110px) { #content div.inside-grid { padding: 0px 0px 0px 42px; } }
-@media (min-width: 1200px) { #content div.inside-grid { padding: 0px 0px 0px 19px; font-size: 1.5em; } }
+@media (min-width: 500px) { #content div.inside-grid { height: 40px; padding: 0px 0px 0px 12px; font-size: 1.3em; } }
+@media (min-width: 570px) { #content div.inside-grid { height: 51px; padding: 0px 0px 0px 12px; font-size: 1.3em; } }
+@media (min-width: 768px) { #content div.inside-grid { height: 58px; padding: 0px 0px 0px 11px; font-size: 1.5em; } }
+@media (min-width: 1110px) { #content div.inside-grid { height: 58px; padding: 0px 0px 0px 42px; } }
+@media (min-width: 1200px) { #moreInfo { margin-top: 15px; }
+  #content div.inside-grid { padding: 0px 0px 0px 19px; font-size: 1.5em; } }
 @media (min-width: 1895px) { #content div.inside-grid { height: 60px; padding: 0px 0px 0px 30px; font-size: 2.6em; } }
