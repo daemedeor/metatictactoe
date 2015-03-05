@@ -1,21 +1,31 @@
 //express app
 var express = require('express');
 var app = express();
+var session = require('express-session');
+
 var metaTicToeGame = require('./metatictactoe');
+var cookieSecret = "secretPhrase";
+var memoryStore = session.MemoryStore;
+var sessionStore = new memoryStore();
 
 //database for the users
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
 var cookieParser = require('cookie-parser');
-var session = require('express-session');
 //middle ware
 var bodyParser = require('body-parser');
 var path = require('path');
 var favicon = require('static-favicon');
 var logger = require('morgan');
-
+mongoose.connect('mongodb://localhost');
 app.use(cookieParser("secretPhrase"));
-
+app.use(session(
+ {
+  secret: cookieSecret,
+  store: sessionStore,
+  saveUninitialized: false,
+  resave: false
+ } ));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
@@ -35,10 +45,12 @@ app.use(function(req, res, next){
 var routes = require('./routes/index');
 var login = require('./routes/login');
 var user = require('./routes/user');
+var register = require('./routes/register');
 
 app.use('/', routes);
 app.use('/', user);
 app.use('/', login);
+app.use('/', register);
 
 /// catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -69,7 +81,7 @@ app.use(function(err, req, res, next) {
     });
 });
 
-
+app.sessionStore = sessionStore;
 
 // io.use(function(socket, next) {
 //     var req = socket.handshake;

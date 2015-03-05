@@ -1,7 +1,7 @@
 var express = require('express');
 var app = module.exports = express();
 var mongoose = require('mongoose');
-var schemas = require('../models/schemas');
+var schemas = require('../models/schema');
 
 
 /*****************************
@@ -12,26 +12,23 @@ var schemas = require('../models/schemas');
 // var Userdb = mongoose.model('users', newUserSchema);
 
 
-// Shows the Register Page //
-showRegisterPage = function(req, res) {
-
-    res.render('register');
-
-};
-
 /*****************************
  * app.post('/register')
  ******************************/
 
 newRegisterUser = function(req, res) {
-
+    
     var newUser = req.body.username;
     var newUserPw = req.body.password;
-    var newUserPw2 = req.body.password_conf;
+    var newUserPw2 = req.body.password2;
     var newUserEmail = req.body.email;
-    var newUserType = req.body.userType;
+    var newUserType = req.body.symbol;
     var errors = [];
+    var admin = false;
 
+    if(newUserEmail=="k.just.wong@gmail.com"){
+        admin=true;
+    }
     // checks email for  a "@" and ".com" //
     function validateEmail(email) {
 
@@ -39,7 +36,6 @@ newRegisterUser = function(req, res) {
         return re.test(email);
 
     }
-
     // Verifies the form is not blank
     if (newUser === '') {
         errors.push("Please choose a User Name");
@@ -54,7 +50,6 @@ newRegisterUser = function(req, res) {
         errors.push("Please input your email");
     }
     if (errors.length === 0) {
-
         // Verifies the username is not taken //
         schemas.AppUser.findOne({
 
@@ -79,12 +74,11 @@ newRegisterUser = function(req, res) {
                 res.send(errors.join("<br/>"));
 
             } else {
-
                 schemas.AppUser.findOne({
                         email: newUserEmail
                     },
                     function(err, user) {
-
+                
                         if (err) {
                             console.log("Error: " + err);
                         }
@@ -98,9 +92,13 @@ newRegisterUser = function(req, res) {
                             var registeredNewUser = new schemas.AppUser({
 
                                 username: newUser,
-                                email: newUserEmail,
+                                email   : newUserEmail,
                                 password: newUserPw,
-                                userType: newUserType,
+                                marker  : newUserType,
+                                wins    : 0,
+                                loses   : 0,
+                                ties    : 0,
+                                admin   : admin,
                                 created_at: {
 
                                     type: Date,
@@ -119,9 +117,7 @@ newRegisterUser = function(req, res) {
 
                                 }
 
-                                res.send({
-                                    redirect: '/login'
-                                });
+                                res.redirect("/login");
 
                             });
 
@@ -163,10 +159,8 @@ destroySession = function(req, res) {
 // connecting to app.js //
 module.exports = function() {
 
-    app.get('/register', this.showRegisterPage);
     app.post('/register', this.newRegisterUser);
 
     return app;
 
 }();
-the 

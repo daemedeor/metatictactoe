@@ -17,10 +17,10 @@ showLoginPage = function(req, res) {
 
 checkLogin = function(req, res) {
 
-    var input_user = req.body.username;
+    var input_email = req.body.email;
     var input_pass = req.body.password;
 
-    if (input_user == '') {
+    if (input_email == '') {
 
         res.send("Please enter a username");
         return;
@@ -35,7 +35,7 @@ checkLogin = function(req, res) {
 
     //validate username and password
     schemas.AppUser.findOne({
-            username: input_user
+            email : input_email
         },
         function(err, user) {
 
@@ -57,21 +57,19 @@ checkLogin = function(req, res) {
 
             }
             if (input_pass === user.password) {
-
-                req.session.name = user.username;
-                req.session.currentSession = true;
-                req.session.
+            
+                req.session.id = req.sessionID;
+                req.session.user = user;
                 data = {
-
-                    redirect: '/user/edit/' + user._id,
-                    user: req.session.userType,
-                    currentSession: req.session.currentSession,
-                    currentUser: req.session.userId,
-                    current: true
-
+                    admin: user.admin,
+                    currentSession: req.sessionID,
+                    currentUser: user._id,
+                    marker: user.marker,
+                    email: user.email,
+                    login: true
                 };
 
-                res.send(data);
+                res.render("index",data);
                 return;
 
             }

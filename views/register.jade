@@ -1,5 +1,36 @@
 extends ./layout
 
+block headerStyles
+  
+  link(rel="stylesheet",href="/css/login.css")
+  
+
 block content
 
-	h1 Just scaffolding a small part of the site, carry on
+  .login
+    form(method="POST",action="/register").login-screen
+      div#logInBody
+        .app-title
+          h1 Register
+        .login-form
+          .control-group
+            input#login-email.login-field(type='text', value='',name="email", placeholder='email')
+            label.login-field-icon.fui-user(for='email')
+          
+          .control-group
+            input#login-name.login-field(type='text', value='',name='username',placeholder='username')
+            label.login-field-icon.fui-user(for='username')
+          
+          .control-group
+            label.login-field-icon.fui-lock(for='pass')
+            input#login-pass.login-field(type='password', value='',name="password" placeholder='password')
+          
+          .control-group
+            label.login-field-icon.fui-lock(for='pass2')
+            input#login-pass2.login-field(type='password', value='',name="password2", placeholder='password2')
+          
+          .control-group
+            input#login-symbol.login-field(type='text', value='',name='symbol',placeholder='symbol (optional)')
+            label.login-field-icon.fui-user(for='symbol')
+
+          button.btn.btn-primary.btn-large.btn-block(type='submit') Register

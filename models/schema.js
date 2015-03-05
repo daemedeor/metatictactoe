@@ -6,15 +6,18 @@ var mongoose = require('mongoose');
 var newUserSchema = new mongoose.Schema({
 
   username    : String,
-  email       : String,
   password    : String,
   password2 	: String,
   wins				: Number,
   loses				: Number,
   ties				: Number,
+  email       : String,
   marker			: String,
-  admin				: Boolean
-
+  admin				: Boolean,
+  created_at  : {
+    type: Date,
+    default: Date.now()
+  }
 });
 
 /***********************************

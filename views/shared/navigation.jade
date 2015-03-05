@@ -9,7 +9,7 @@ nav.row
       a(href="/contact") Contact
     li
       a(href="https://github.com/kingtak/metatictactoe") Github
-    -if(user == null || req == null || req.login == false)
+    -if(data == null || data.login == false)
       li
         a(href="/login") Login
       li
@@ -18,4 +18,7 @@ nav.row
       li
         a(href="/logout") Logout
       li
-        a(href="/profile") Profile
+        a(href="/user/#{data.currentUser}") Profile
+    -if(data != null && data.admin)
+      li
+        a(href="/admin") Admin

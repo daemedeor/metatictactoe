@@ -1,5 +1,9 @@
 extends ./layout
 
+block headerScripts
+  script(src="./libs/socket.io.js")
+  script(src="./js/tictactoegame.js")
+
 block content
   
   .alert Look there's a box here
@@ -143,3 +147,7 @@ block content
         label.col-xs-6(for="name") Username (optional)
         input.col-xs-6(name="name",type="text")#userNameInput
       span#submitButton.button Connect to a room
+
+block footerScripts
+  script(src="./js/logic.js")
+  

@@ -1,21 +1,9 @@
 // #!/usr/bin/env node
-var session = require('express-session');
 var debug = require('debug')('metatictactoe');
-var memoryStore = session.MemoryStore;
-var sessionStore = new memoryStore();
 var app = require('../app');
 var cookieSecret = "secretPhrase";
 var cookieParser = require('cookie-parser');
 var metaTicToeGame = require('../metatictactoe');
-
-app.use(session(
- {
-  secret: cookieSecret,
-  cookie: { httpOnly: true, secure: true},
-  store: sessionStore,
-  saveUninitialized: false,
-  resave: false
- } ));
 
 app.set('port', process.env.PORT || 3000);
 
@@ -31,7 +19,7 @@ var http = require('http').createServer(app).listen(app.get('port'), function(){
 var serverIO = require('socket.io').listen(http);
 var SessionSockets = require('session.socket.io-express4');
 
-var io = new SessionSockets(serverIO, sessionStore, cookieParser());
+var io = new SessionSockets(serverIO, app.sessionStore, cookieParser());
 io.on('connection', function(err, socket, session){
    console.log("connected to a socket");
    metaTicToeGame.initGame(err, session, socket, serverIO);

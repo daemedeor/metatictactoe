@@ -1,4 +1,29 @@
 extends ./layout
 
+block headerStyles
+  
+  link(rel="stylesheet",href="/css/login.css")
+  
+
 block content
-	h1 just saying hellloo
+
+  .login
+    form(method="POST",action="/login").login-screen
+      div#logInBody
+        .app-title
+          h1 Login
+        .login-form
+          .control-group
+            input#login-name.login-field(type='text', value='',name="email", placeholder='email')
+            label.login-field-icon.fui-user(for='email')
+          .control-group
+            label.login-field-icon.fui-lock(for='pass')
+
+            input#login-pass.login-field(type='password',name="password",value='', placeholder='password')
+          button.btn.btn-primary.btn-large.btn-block(type="submit") Login
+          //a.login-link(href='#') Lost your password?
+
+      h3.text-center OR
+      
+      div.text-center
+        a(href="/register").text-center.register-link Register
