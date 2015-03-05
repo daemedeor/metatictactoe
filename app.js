@@ -35,11 +35,6 @@ app.set('view engine', 'jade');
 app.use(favicon());
 app.use(logger('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(function(req, res, next){
-    res.locals.session = req.session;
-    next();
-
-});
 
 //routes
 var routes = require('./routes/index');

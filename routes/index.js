@@ -7,7 +7,7 @@ var app = express();
 
 /* GET home page. */
 router.get('/', function(req, res) {
-  res.render('./index');
+  res.render('./index', req.session.data);
 });
 
 router.get("/contact", function(req,res){

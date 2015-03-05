@@ -57,7 +57,7 @@ checkLogin = function(req, res) {
 
             }
             if (input_pass === user.password) {
-            
+                console.log("user is okay");
                 req.session.id = req.sessionID;
                 req.session.user = user;
                 data = {
@@ -68,11 +68,11 @@ checkLogin = function(req, res) {
                     email: user.email,
                     login: true
                 };
-
+                req.session.data = data;
                 res.render("index",data);
                 return;
-
             }
+
 
         }
 

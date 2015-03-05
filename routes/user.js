@@ -43,18 +43,16 @@ savedEditedProfile = function (req, res) {
 
 userProfilePage = function (req, res) {
 
-  var userId = user.id;
-  console.log(userId);
+  var userId = req.params.id;
   user.findOne({ _id: userId },
 
     function (err, user) {
-      console.log("currentUser below");
-      console.log(user);
+      console.log(req.session);
+      res.render('profile', {user: user});
 
     }
 
   );
-  res.render('profile', { current : true });
 
 }; 
 
