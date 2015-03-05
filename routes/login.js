@@ -57,7 +57,6 @@ checkLogin = function(req, res) {
 
             }
             if (input_pass === user.password) {
-                console.log("user is okay");
                 req.session.id = req.sessionID;
                 req.session.user = user;
                 data = {
@@ -88,8 +87,17 @@ checkLogin = function(req, res) {
 
 destroySession = function(req, res) {
 
-    req.session.destroy();
-    res.redirect('/');
+    req.session.destroy(function(err){
+        if(err){
+            console.log(err);
+        }
+        console.log("shoudl be undefined");
+        console.log(req.session);
+        data = null;
+        res.clearCookie('connect.sid', { path: '/' });
+        res.redirect('/');
+
+    });
 
 };
 

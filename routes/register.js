@@ -143,19 +143,6 @@ newRegisterUser = function(req, res) {
 }; // ends newRegisterUser
 
 
-/*****************************
- * app.get('/logout')
- ******************************/
-
-destroySession = function(req, res) {
-
-    req.session.destroy();
-    res.send({
-        redirect: '/'
-    });
-
-};
-
 // connecting to app.js //
 module.exports = function() {
 

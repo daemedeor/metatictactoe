@@ -47,7 +47,6 @@ userProfilePage = function (req, res) {
   user.findOne({ _id: userId },
 
     function (err, user) {
-      console.log(req.session);
       res.render('profile', {user: user});
 
     }
