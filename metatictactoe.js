@@ -3,12 +3,14 @@ var gameSocket;
 var tictactoegame;
 var meta = {};
 var firstMarker;
+var SessionSockets;
 
-meta.initGame = function(err, session, socket, sessionIo){
+meta.initGame = function(err, session, socket, sessionIo, SessionSocketsInit){
   io = sessionIo;
   this.session = session;
   this.socket = socket;
   this.err = err;
+  SessionSockets = SessionSocketsInit;
 
   gameSocket = socket;
   gameSocket.emit('connected', {message: "You are Connected!"});
@@ -25,14 +27,21 @@ meta.initGame = function(err, session, socket, sessionIo){
 function createNewGame(){
   var thisGameId = (Math.random() * 100000) | 0;
   var name, marker;
-  if(!meta.session){
-    currentMarker = "o"
-  }
-  firstMarker = currentMarker;
+  var $this = this;
+  
+    SessionSockets.getSession(gameSocket, function (err, session) {
+     
+      if(!session){
+        currentMarker = "o"
+      }else{
+        currentMarker = session.data.marker;
+      }
 
-  this.emit('newGameCreated', {gameId: thisGameId, name: "", mySocketId: this.id, marker: currentMarker, message: "game created, waiting for another"});
+      $this.emit('newGameCreated', {gameId: thisGameId, name: "", mySocketId: $this.id, marker: currentMarker, message: "game created, waiting for another"});
 
-  this.join(thisGameId.toString());
+      $this.join(thisGameId.toString());  
+    });
+
 };
 
 
@@ -42,27 +51,32 @@ function startGame(data){
 }
 
 function playerJoin(data){
-  var sock = this;
+  var $this = this;
+  var currentData = data;
+  SessionSockets.getSession(gameSocket, function (err, session) {
+    var room = gameSocket.adapter.rooms[currentData.gameId];
+   
+    if(!session){
+      currentMarker = "o"
+    }else{
+      currentMarker = session.data.marker;
+    }
 
-  var room = gameSocket.adapter.rooms[data.gameId];
-  if(!meta.session){
-    currentMarker = "x"
-  }
-
-  if(room != undefined){
-    
-    var data = {
-      mySocketId: sock.id,
-      gameId: data.gameId,
-      marker: currentMarker,
-      initialStart: firstMarker,
-      playerName: data.name
-    };
-    sock.join(data.gameId);
-    io.sockets.in(data.gameId).emit('playerJoined', data);
-  }else{
-    this.emit('joinError', {message: "The game does not exist!"});
-  }
+    if(room != undefined){
+  
+      var data = {
+        mySocketId: $this.id,
+        gameId: data.gameId,
+        marker: currentMarker,
+        initialStart: firstMarker,
+        playerName: data.name
+      };
+      $this.join(data.gameId);
+      io.sockets.in(data.gameId).emit('playerJoined', data);
+    }else{
+      $this.emit('joinError', {message: "The game does not exist!"});
+    }
+  });
 
 }
 

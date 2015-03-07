@@ -4,6 +4,7 @@
   var IO = {
     init: function(){
       IO.socket = io.connect();
+
       IO.bindEvents();
     },
 
@@ -47,6 +48,7 @@
       data {{player: player, gameId: int, mySocketId: int}}
      */
     playerJoinedRoom: function(data){
+      $("#submitButton").removeClass('button-error');
       $("#currentMarker").html(data.initialStart);
       App.player.joined(data);
       App[App.myRole].gameStarted(data);
@@ -209,8 +211,8 @@
       
       createRoom: function(){
         App.myRole = "host";
-        IO.init();
         App.resetGame();
+        IO.bindEvents();
         IO.socket.emit('newGameCreated'); 
       },
 
@@ -250,8 +252,9 @@
       marker: "",
       
       joinRooom: function(){
-        IO.init();
         App.resetGame();
+        IO.bindEvents();
+        $("#submitButton").html('Submitting');
 
         if(App.myRole == "host"){
           var argue = confirm("Are you sure?");

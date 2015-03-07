@@ -49,6 +49,9 @@ newRegisterUser = function(req, res) {
     if (newUserEmail === '') {
         errors.push("Please input your email");
     }
+    if(newUserType.length > 1){
+        errors.push("Please use only one symbol")
+    }
     if (errors.length === 0) {
         // Verifies the username is not taken //
         schemas.AppUser.findOne({

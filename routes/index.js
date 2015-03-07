@@ -7,8 +7,6 @@ var app = express();
 
 /* GET home page. */
 router.get('/', function(req, res) {
-  console.log(req.session);
-
   res.render('./index');
 });
 

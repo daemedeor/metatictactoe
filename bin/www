@@ -19,8 +19,7 @@ var http = require('http').createServer(app).listen(app.get('port'), function(){
 var serverIO = require('socket.io').listen(http);
 var SessionSockets = require('session.socket.io-express4');
 
-var io = new SessionSockets(serverIO, app.sessionStore, cookieParser());
+var io = new SessionSockets(serverIO, app.sessionStore, cookieParser(cookieSecret));
 io.on('connection', function(err, socket, session){
-   console.log("connected to a socket");
-   metaTicToeGame.initGame(err, session, socket, serverIO);
+   metaTicToeGame.initGame(err, session, socket, serverIO, io);
 });

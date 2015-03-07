@@ -22,7 +22,7 @@ checkLogin = function(req, res) {
 
     if (input_email == '') {
 
-        res.send("Please enter a username");
+        res.send("Please enter an email");
         return;
 
     }
@@ -52,14 +52,14 @@ checkLogin = function(req, res) {
             }
             if (input_pass !== user.password) {
 
-                res.send("Password is wrong");
+                res.send("Password or email is wrong");
                 return;
 
             }
             if (input_pass === user.password) {
                 req.session.id = req.sessionID;
                 req.session.user = user;
-                data = {
+                var data = {
                     admin: user.admin,
                     currentSession: req.sessionID,
                     currentUser: user._id,
@@ -67,6 +67,7 @@ checkLogin = function(req, res) {
                     email: user.email,
                     login: true
                 };
+                console.log(data);
                 req.session.data = data;
                 res.render("index",data);
                 return;
@@ -91,8 +92,7 @@ destroySession = function(req, res) {
         if(err){
             console.log(err);
         }
-        console.log("shoudl be undefined");
-        console.log(req.session);
+
         data = null;
         res.clearCookie('connect.sid', { path: '/' });
         res.redirect('/');
