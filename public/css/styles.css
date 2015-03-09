@@ -431,7 +431,7 @@ body.row { margin: 0px; background-color: #3DA9E7; height: 100%; }
   #content #board { margin-top: 15px; }
   #moreInfo > span { margin-top: 15px; } }
 @media (min-width: 768px) { #page-header { padding: 15px; font-size: 2.4em; }
-  #content div.inside-grid { height: 47px; padding: 0px; width: 42px; }
+  #content div.inside-grid { height: 47px; padding: 0px; width: 54px; }
   #content .main-grid { padding: 9px; } }
 @media (min-width: 1020px) { #content div.inside-grid { height: 41px; padding: 0px; width: 63px; }
   #content .main-grid { padding: 9px; padding-left: 34px; } }
