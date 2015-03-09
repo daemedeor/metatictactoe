@@ -437,4 +437,4 @@ body.row { margin: 0px; background-color: #3DA9E7; height: 100%; }
   #content .main-grid { padding: 9px; padding-left: 34px; } }
 @media (min-width: 1200px) { #moreInfo { margin-top: 15px; }
   #content div.inside-grid { padding: 0px 0px 0px 19px; font-size: 1.5em; } }
-@media (min-width: 1895px) { #content div.inside-grid { height: 60px; padding: 0px 0px 0px 30px; font-size: 2.6em; } }
+@media (min-width: 1895px) { #content div.inside-grid { height: 60px; padding: 0px 0px 0px 30px; font-size: 2.6em; width: 108px; } }
