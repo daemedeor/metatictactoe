@@ -150,7 +150,7 @@ nav{
   position: fixed;
   left: 40%;
   transition: all .4s;
-  top: -60px;
+  top: -100px;
 
   &.open{
     top: 0px;
@@ -158,7 +158,7 @@ nav{
   }
 
   &.close{
-    top: -60px;
+    top: -100px;
     line-height: 18px;
     transition: all .5s;
   }
