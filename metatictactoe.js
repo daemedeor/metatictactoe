@@ -55,7 +55,7 @@ function playerJoin(data){
   var currentData = data;
   SessionSockets.getSession(gameSocket, function (err, session) {
     var room = gameSocket.adapter.rooms[currentData.gameId];
-   
+   console.log(session);
     if(!session){
       currentMarker = "o"
     }else{
