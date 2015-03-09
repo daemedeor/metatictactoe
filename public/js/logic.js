@@ -3,7 +3,7 @@
   
   var IO = {
     init: function(){
-      IO.socket = io.connect();
+      IO.socket = io.connect("http://localhost:3000");
 
       IO.bindEvents();
     },
