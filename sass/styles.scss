@@ -43,8 +43,8 @@ a{
 
 /* Top stylings */
 #page-header{
-  padding: 15px;
-  font-size: 2.4em;
+  padding: 0px;
+  font-size: 1.4em;
 }
 
 .button {
@@ -300,6 +300,7 @@ nav{
   margin-top: 20px;
 
   #markerDiv, #roomDiv{
+
     span{
       font-size: .8em;
     }
@@ -376,10 +377,11 @@ body.row{
   }
   
   div.inside-grid{
-    height: 40px;
-    padding: 20px 0px 0px 0px;
-    font-size: 2em;
-    
+    height: 21px;
+    padding: 0px 0px 0px 0px;
+    font-size: .9em;
+    width: 21px;
+
     &:hover{
       background-color: #FFA833;
       cursor: default;
@@ -387,7 +389,7 @@ body.row{
   }
   
   .main-grid{
-    padding: 10px;
+    padding: 0px;
     cursor: default;
     
     &.disabled{
@@ -516,7 +518,7 @@ body.row{
 #moreInfo{
 
   > span{
-    margin-top: 15px;
+    margin-top: 8px;
   }
 
   span{
@@ -538,7 +540,22 @@ body.row{
 #contentBlock{
   margin-top: 30px;
 }
+@media (min-width: 385px){
+  #content div.inside-grid{
+    height: 24px;
+    padding: 0px 0px 0px 11px;
+    font-size: 1.5em;
+    width: 27px;
+  }
 
+}
+@media (min-width: 450px){
+  #content div.inside-grid{
+    height: 32px;
+    width: 38px;
+  }
+
+}
 @media (min-width: 500px) {
   
   #content div.inside-grid{
@@ -551,31 +568,67 @@ body.row{
 
 @media (min-width: 570px) {
   
-  #content div.inside-grid{
-    height: 51px;
-    padding: 0px 0px 0px 12px;
-    font-size: 1.3em;
+  #content {
+    div.inside-grid{
+      height: 30px;
+      padding: 0px 0px 0px 12px;
+      font-size: 1.3em;
+      width: 40px;
+    }
+    
+    .main-grid{
+      padding-left: 20px;
+    }
+    
+    .inside-container{
+      padding: 15px;
+    }
+
+    #board{
+      margin-top: 15px;
+    }
   }
+
+  #moreInfo{
+
+    > span{
+      margin-top: 15px;
+    }
+  } 
 
 }
 
 @media (min-width: $screen-sm-min) {
   
-  #content div.inside-grid{
-    height: 58px;
-    padding: 0px 0px 0px 11px;
-    font-size: 1.5em;
+  #page-header{
+    padding: 15px;
+    font-size: 2.4em;
   }
-  
+
+  #content div.inside-grid{
+    height: 47px;
+    padding: 0px;
+    width: 42px;
+  }
+
+  #content .main-grid{
+    padding: 9px;
+  }
 }
 
 
 
-@media (min-width: 1110px) {  
+@media (min-width: 1020px) {  
   
   #content div.inside-grid{
-    height: 58px;
-    padding: 0px 0px 0px 42px;
+    height: 41px;
+    padding: 0px;
+    width: 63px;
+  }
+
+  #content .main-grid{
+    padding: 9px;
+    padding-left: 34px;
   }
 }
 
