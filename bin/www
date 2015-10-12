@@ -5,13 +5,13 @@ var cookieSecret = "secretPhrase";
 var cookieParser = require('cookie-parser');
 var metaTicToeGame = require('../metatictactoe');
 
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 7458);
 
 // var server = app.listen(app.get('port'), function() {
 // 	console.log("started");
 // });
 var http = require('http').createServer(app).listen(app.get('port'), function(){
-    console.log("http server listening on port 3000");
+    console.log("http server listening on port 7458");
     debug('Express server listening on port ' + http.address().port);
 
 });
